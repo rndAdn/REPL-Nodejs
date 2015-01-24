@@ -2,7 +2,7 @@
 'context-menu':
   'atom-text-editor': [
     {
-      'label': 'Toggle my-r-e-p-l'
+      'label': 'Create my-r-e-p-l'
       'command': 'my-r-e-p-l:toggle'
     }
   ]
@@ -13,7 +13,15 @@
       'label': 'my-r-e-p-l'
       'submenu': [
         {
-          'label': 'Toggle'
+          'label': 'Create'
+          'command': 'my-r-e-p-l:create'
+        }
+        {
+          'label': 'Interprete File'
+          'command': 'my-r-e-p-l:toggle'
+        }
+        {
+          'label': 'Interprete Selection'
           'command': 'my-r-e-p-l:toggle'
         }
       ]

@@ -1,4 +1,5 @@
 MyREPLView = require './my-r-e-p-l-view'
+REPLView = require './Repl-View/ReplView'
 {CompositeDisposable} = require 'atom'
 
 module.exports = MyREPL =
@@ -7,6 +8,7 @@ module.exports = MyREPL =
   subscriptions: null
 
   activate: (state) ->
+    console.log("activate")
     @myREPLView = new MyREPLView(state.myREPLViewState)
     @modalPanel = atom.workspace.addRightPanel(item: @myREPLView.getElement(), visible: false)
 
@@ -15,6 +17,7 @@ module.exports = MyREPL =
 
      # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:toggle': => @toggle()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:create': => @create()
 
   deactivate: ->
     @modalPanel.destroy()
@@ -31,3 +34,23 @@ module.exports = MyREPL =
       @modalPanel.hide()
     else
       @modalPanel.show()
+
+  create: ->
+    console.log 'create'
+    atom.workspace.registerOpener (uriToOpen) ->
+      try
+        {protocol, host, pathname} = url.parse(uriToOpen)
+      catch error
+        return
+
+      return unless protocol is 'html-preview:'
+
+      try
+        pathname = decodeURI(pathname) if pathname
+      catch error
+        return
+
+      if host is 'editor'
+        new HtmlPreviewView(editorId: pathname.substring(1))
+      else
+        new HtmlPreviewView(filePath: pathname)
