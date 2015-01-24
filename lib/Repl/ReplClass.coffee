@@ -9,7 +9,7 @@ class Repl
       process.stdout.write(@prompt)
       if(@cmdQueue.length > 0)
         cmd = @cmdQueue.shift()
-        @print += @prompt+' '+cmd
+        @print += cmd
         @replProcess.stdin.write(cmd)
 
     processOutputData:(data) ->
@@ -38,12 +38,8 @@ class Repl
       @replProcess.stdout.on('data', (data)->self.processOutputData(data))
       @replProcess.stderr.on('data', (data)->self.processErrorData(data))
       @replProcess.on('close', ()->self.closeRepl())
-<<<<<<< HEAD
-      #console.log(@print)
-=======
       process.stdout.write(@print)
->>>>>>> 81108ea3eb1e6ad154cee1be46bfe5550522007d
 
-myrepl = new Repl('ocaml', ['-noprompt'], "#")
+myrepl = new Repl('ocaml',['-noprompt'],"# ")
 myrepl.writeInRepl("let _ = 2*2;;\n")
 myrepl.writeInRepl("let _ = 3*2;;\n")
