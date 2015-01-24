@@ -7,14 +7,15 @@ ReplOcaml = require './ReplOcaml'
 module.exports =
 class Repl
 
-    processCmd:()->
+    processCmd:(write_cmd)->
       #console.log('2')
       if(@processing)
         @retour(@prompt)
       if(@cmdQueue.length > 0)
         @processing = true
         cmd = @cmdQueue.shift()
-        @print += cmd
+        if write_cmd = true
+            @print += cmd
         @replProcess.stdin.write(cmd)
         console.log(@endSequence)
         if cmd.slice(-@endSequence.length) != @endSequence
@@ -42,12 +43,12 @@ class Repl
     closeRepl:(code) ->
       console.log('child process exited with code ' + code)
 
-    writeInRepl:(cmd) ->
+    writeInRepl:(cmd, write_cmd) ->
       #console.log(s)
       #@replProcess.stdin.write(s)
       @cmdQueue.push(cmd)
       if(!@processing)
-        @processCmd()
+        @processCmd(write_cmd)
 
     constructor:(r_format, @retour) ->
       self = this
