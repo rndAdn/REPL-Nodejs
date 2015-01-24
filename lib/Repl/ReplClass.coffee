@@ -14,7 +14,7 @@ class Repl
       if(@cmdQueue.length > 0)
         @processing = true
         cmd = @cmdQueue.shift()
-        if write_cmd == true
+        if (write_cmd)
             @print += cmd
         @replProcess.stdin.write(cmd)
         if cmd.slice(-@endSequence.length) != @endSequence
