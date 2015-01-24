@@ -37,20 +37,4 @@ module.exports = MyREPL =
 
   create: ->
     console.log 'create'
-    atom.workspace.registerOpener (uriToOpen) ->
-      try
-        {protocol, host, pathname} = url.parse(uriToOpen)
-      catch error
-        return
-
-      return unless protocol is 'html-preview:'
-
-      try
-        pathname = decodeURI(pathname) if pathname
-      catch error
-        return
-
-      if host is 'editor'
-        new HtmlPreviewView(editorId: pathname.substring(1))
-      else
-        new HtmlPreviewView(filePath: pathname)
+    new REPLView(atom.workspace.getActivePane())
