@@ -13,8 +13,11 @@ class Repl
         cmd = @cmdQueue.shift()
         @print += cmd
         @replProcess.stdin.write(cmd)
+<<<<<<< HEAD
         if(cmd.substring(cmd.length-3,cmd.length-1)!= @endSequence[0]) ## changer
           @processCmd()
+=======
+>>>>>>> 165b8fc101dd8124e2aaf07b462da1a28e82aa02
       else
         @processing = false
 
@@ -47,3 +50,7 @@ class Repl
       @replProcess.stderr.on('data', (data)->self.processErrorData(data))
       @replProcess.on('close', ()->self.closeRepl())
       process.stdout.write(@print)
+myrepl = new Repl('ocaml',['-noprompt'],"# ")
+myrepl.writeInRepl("let a l = match l with\n| _ -> true;;\n")
+#myrepl.writeInRepl("| _ -> true;;\n")
+myrepl.writeInRepl("let _ = 3*2;;\n")
