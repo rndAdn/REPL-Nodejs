@@ -11,6 +11,11 @@ class REPLView
       event.cancel()
   '''
 
+  interprete :() =>
+    select = @activeTextEditor.getSelectedText()
+    console.log(select)
+    @repl.writeInRepl(select,true)
+
   dealWithBuffer :() =>
     buf = @replTextEditor.getCursorBufferPosition()
     #console.log(@lastBuf)

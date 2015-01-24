@@ -9,6 +9,7 @@ module.exports = MyREPL =
 
   activate: (state) ->
     console.log("activate")
+    @map = new Array()
     @myREPLView = new MyREPLView(state.myREPLViewState)
     @modalPanel = atom.workspace.addRightPanel(item: @myREPLView.getElement(), visible: false)
 
@@ -18,6 +19,7 @@ module.exports = MyREPL =
      # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:toggle': => @toggle()
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:create': => @create()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:interprete': => @interprete()
 
   deactivate: ->
     @modalPanel.destroy()
@@ -36,5 +38,15 @@ module.exports = MyREPL =
       @modalPanel.show()
 
   create: ->
-    console.log 'create'
-    new REPLView(atom.workspace.getActiveTextEditor())
+    txtEditor = atom.workspace.getActiveTextEditor()
+    @map.push([txtEditor,new REPLView(txtEditor)])
+
+  interprete: ->
+    txtEditor = atom.workspace.getActiveTextEditor()
+    for element in @map
+      if (element[0] == txtEditor)
+        repl = element[1]
+    if(repl?)
+      repl.interprete()
+    else
+      @create()
