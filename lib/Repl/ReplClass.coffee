@@ -13,8 +13,6 @@ class Repl
         cmd = @cmdQueue.shift()
         @print += cmd
         @replProcess.stdin.write(cmd)
-        if(cmd.substring(cmd.length-3,cmd.length-1)!=';;')
-          @processCmd()
       else
         @processing = false
 
@@ -50,6 +48,6 @@ class Repl
       process.stdout.write(@print)
 
 myrepl = new Repl('ocaml',['-noprompt'],"# ")
-myrepl.writeInRepl("let a l = match l with\n")
-myrepl.writeInRepl("| _ -> true;;\n")
+myrepl.writeInRepl("let a l = match l with\n| _ -> true;;\n")
+#myrepl.writeInRepl("| _ -> true;;\n")
 myrepl.writeInRepl("let _ = 3*2;;\n")
