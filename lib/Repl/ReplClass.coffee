@@ -48,11 +48,11 @@ class Repl
     writeInRepl:(cmd, write_cmd) ->
       #console.log(s)
       #@replProcess.stdin.write(s)
-      if cmd.slice(-1) != '\n'
-          cmd = cmd+'\n'
-      lines = cmd.split('\n')
+      if cmd.slice(-@endSequence.length) != @endSequence
+          cmd = cmd+@endSequence
+      lines = cmd.split(@endSequence)
       for element in lines
-        @cmdQueue.push([element+'\n',write_cmd])
+        @cmdQueue.push([element+@endSequence,write_cmd])
       if(!@processing)
         @processCmd()
 
