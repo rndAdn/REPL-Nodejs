@@ -1,6 +1,7 @@
 fs = require 'fs'
 child_process = require 'child_process'
 #read_line = require 'read_line'
+Format = require './ReplFormat.coffee'
 
 class Repl
 
@@ -13,11 +14,6 @@ class Repl
         cmd = @cmdQueue.shift()
         @print += cmd
         @replProcess.stdin.write(cmd)
-<<<<<<< HEAD
-        if(cmd.substring(cmd.length-3,cmd.length-1)!= @endSequence[0]) ## changer
-          @processCmd()
-=======
->>>>>>> 165b8fc101dd8124e2aaf07b462da1a28e82aa02
       else
         @processing = false
 
@@ -40,17 +36,23 @@ class Repl
       if(!@processing)
         @processCmd()
 
-    constructor:() ->
+    constructor:(r_format) ->
       self = this
+      @processing = true
+      cmd = r_format.cmd
+      args = r_format.args
+      @prompt = r_format.prompt
+      @endSequence = r_format.endSequence
       @print = ""
-      process.stdout.write("azer")
       @cmdQueue =   new Array()
       @replProcess = child_process.spawn(cmd, args)
       @replProcess.stdout.on('data', (data)->self.processOutputData(data))
       @replProcess.stderr.on('data', (data)->self.processErrorData(data))
       @replProcess.on('close', ()->self.closeRepl())
       process.stdout.write(@print)
-myrepl = new Repl('ocaml',['-noprompt'],"# ")
+
+ocaml = new Format.ReplFormat()
+myrepl = new Repl(ocaml)
 myrepl.writeInRepl("let a l = match l with\n| _ -> true;;\n")
 #myrepl.writeInRepl("| _ -> true;;\n")
 myrepl.writeInRepl("let _ = 3*2;;\n")
