@@ -13,7 +13,7 @@ class Repl
         cmd = @cmdQueue.shift()
         @print += cmd
         @replProcess.stdin.write(cmd)
-        if(cmd.substring(cmd.length-3,cmd.length-1)!=';;')
+        if(cmd.substring(cmd.length-3,cmd.length-1)!= @endSequence[0]) ## changer
           @processCmd()
       else
         @processing = false
@@ -37,19 +37,13 @@ class Repl
       if(!@processing)
         @processCmd()
 
-    constructor:(cmd,args,prompt) ->
+    constructor:() ->
       self = this
-      @processing = true
-      @prompt = prompt
       @print = ""
+      process.stdout.write("azer")
       @cmdQueue =   new Array()
       @replProcess = child_process.spawn(cmd, args)
       @replProcess.stdout.on('data', (data)->self.processOutputData(data))
       @replProcess.stderr.on('data', (data)->self.processErrorData(data))
       @replProcess.on('close', ()->self.closeRepl())
       process.stdout.write(@print)
-
-myrepl = new Repl('ocaml',['-noprompt'],"# ")
-myrepl.writeInRepl("let a l = match l with\n")
-myrepl.writeInRepl("| _ -> true;;\n")
-myrepl.writeInRepl("let _ = 3*2;;\n")
