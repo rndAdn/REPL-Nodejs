@@ -8,7 +8,7 @@ class Repl
       #console.log('2')
       if(@cmdQueue.length > 0)
         cmd = @cmdQueue.shift()
-        @print += cmd
+        @print += @prompt+cmd
         @replProcess.stdin.write(cmd)
 
     processOutputData:(data) ->
@@ -16,15 +16,8 @@ class Repl
       @print += ""+data
       console.log(@print)
       @print = ""
-      if(@prompt)
-        @processCmd()
-      @prompt = true
-
-    processErrorData:(data) ->
-      @print += ""+data
-      #console.log(@print)
-      @print = ""
       @processCmd()
+      #@prompt = true
 
 
     closeRepl:(code) ->
@@ -35,10 +28,9 @@ class Repl
       #@replProcess.stdin.write(s)
       @cmdQueue.push(cmd)
 
-    constructor:(cmd,args,prompts) ->
+    constructor:(cmd,args,prompt) ->
       self = this
-      @prompt = false
-      @prompts = prompts
+      @prompt = prompt
       @print = ""
       @cmdQueue =   new Array()
       @replProcess = child_process.spawn(cmd, args)
@@ -47,6 +39,6 @@ class Repl
       @replProcess.on('close', ()->self.closeRepl())
       console.log(@print)
 
-myrepl = new Repl('ocaml',[])
+myrepl = new Repl('ocaml',['-noprompt'],"# ")
 myrepl.writeInRepl("let _ = 2*2;;\n")
 myrepl.writeInRepl("let _ = 3*2;;\n")
