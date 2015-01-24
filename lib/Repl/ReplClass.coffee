@@ -10,7 +10,7 @@ class Repl
     processCmd:()->
       #console.log('2')
       if(@processing)
-        @outStream.write(@prompt)
+        @retour(@prompt)
       if(@cmdQueue.length > 0)
         @processing = true
         cmd = @cmdQueue.shift()
@@ -25,7 +25,7 @@ class Repl
     processOutputData:(data) ->
       console.log(@prompt)
       @print += ""+data
-      @outStream.write(@print)
+      @retour(@print)
       @print = ""
       @processCmd()
       #@prompt = true
@@ -49,7 +49,7 @@ class Repl
       if(!@processing)
         @processCmd()
 
-    constructor:(r_format, @inSream, @outStream) ->
+    constructor:(r_format, @retour) ->
       self = this
       @processing = true
       cmd = r_format.cmd
@@ -62,7 +62,7 @@ class Repl
       @replProcess.stdout.on('data', (data)->self.processOutputData(data))
       @replProcess.stderr.on('data', (data)->self.processErrorData(data))
       @replProcess.on('close', ()->self.closeRepl())
-      @outStream.write(@print)
+      @retour(@print)
 '''
 sh = new ReplSh()
 ocaml = new ReplOcaml()

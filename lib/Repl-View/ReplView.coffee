@@ -5,18 +5,22 @@ REPLOcaml = require '../Repl/ReplOcaml'
 module.exports =
 class REPLView
 
-  dealWithRetour: (data) ->
+  setTextEditor :(textEditor) =>
+    @replTextEditor = textEditor
+
+  setRepl :(repl) =>
+    @Repl = repl
+
+  dealWithRetour: (data) =>
+    console.log(@replTextEditor.constructor.name)
     @replTextEditor.insertText(""+data)
 
   constructor: (@activeTextEditor) ->
     self = this
+    @int = 3
     console.log("Ok")
-    #uri = ""+@activeTextEditor.getPath()
-    @replTextEditor = atom.workspace.open("REPL",split: 'right')
-    streamCmdRepl = fs.createWriteStream("/tmp/Cmd")
-    @streamCmd = fs.createReadStream("/tmp/Cmd")
-    @streamRetour = fs.createWriteStream("/tmp/Retour")
-    streamRetourRepl = fs.createReadStream("/tmp/Retour")
-
-    @streamRetour.on('data',(data)->self.dealWithRetour(data))
-    @repl = new REPL(new REPLOcaml(),streamCmdRepl,streamRetourRepl)
+    atom.workspace.open("REPL",split: 'right').done (textEditor) =>
+          console.log "reste"
+          console.log(textEditor.constructor.name)
+          self.setTextEditor(textEditor)
+          self.setRepl(new REPL(new REPLOcaml(),self.dealWithRetour))
