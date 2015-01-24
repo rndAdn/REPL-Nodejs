@@ -4,12 +4,13 @@ child_process = require 'child_process'
 ReplSh = require './ReplSh'
 ReplOcaml = require './ReplOcaml'
 
+module.exports =
 class Repl
 
     processCmd:()->
       #console.log('2')
       if(@processing)
-        process.stdout.write(@prompt)
+        @outStream.write(@prompt)
       if(@cmdQueue.length > 0)
         @processing = true
         cmd = @cmdQueue.shift()
@@ -24,7 +25,7 @@ class Repl
     processOutputData:(data) ->
       console.log(@prompt)
       @print += ""+data
-      process.stdout.write(@print)
+      @outStream.write(@print)
       @print = ""
       @processCmd()
       #@prompt = true
@@ -48,7 +49,7 @@ class Repl
       if(!@processing)
         @processCmd()
 
-    constructor:(r_format, inSream, outStream) ->
+    constructor:(r_format, @inSream, @outStream) ->
       self = this
       @processing = true
       cmd = r_format.cmd
@@ -57,14 +58,12 @@ class Repl
       @endSequence = r_format.endSequence
       @print = ""
       @cmdQueue =   new Array()
-      @inSream = inSream
-      @outStream = outStream
       @replProcess = child_process.spawn(cmd, args)
       @replProcess.stdout.on('data', (data)->self.processOutputData(data))
       @replProcess.stderr.on('data', (data)->self.processErrorData(data))
       @replProcess.on('close', ()->self.closeRepl())
-      process.stdout.write(@print)
-
+      @outStream.write(@print)
+'''
 sh = new ReplSh()
 ocaml = new ReplOcaml()
 
@@ -72,3 +71,4 @@ myrepl = new Repl(ocaml)
 myrepl.writeInRepl('let a l = match l with\n')
 myrepl.writeInRepl("| _ -> true;;\n")
 #myrepl.writeInRepl("let _ = 3*2;;\n")
+'''
