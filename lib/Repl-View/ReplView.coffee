@@ -9,7 +9,7 @@ class REPLView
     buf = @replTextEditor.getCursorBufferPosition()
     #console.log(@lastBuf)
     if(@lastBuf.row<buf.row)
-      @repl.writeInRepl(@replTextEditor.getTextInBufferRange([@lastBuf,buf]))
+      @repl.writeInRepl(@replTextEditor.getTextInBufferRange([@lastBuf,buf]), false)
 
   setTextEditor :(textEditor) =>
     @replTextEditor = textEditor

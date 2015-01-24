@@ -14,17 +14,17 @@ class Repl
       if(@cmdQueue.length > 0)
         @processing = true
         cmd = @cmdQueue.shift()
-        if write_cmd = true
+        if write_cmd == true
             @print += cmd
         @replProcess.stdin.write(cmd)
-        console.log(@endSequence)
         if cmd.slice(-@endSequence.length) != @endSequence
-            @processCmd()
+            @processing = false
+            @processCmd(write_cmd)
       else
         @processing = false
 
     processOutputData:(data) ->
-      console.log(@prompt)
+      #console.log(@prompt)
       @print += ""+data
       @retour(@print)
       @print = ""
