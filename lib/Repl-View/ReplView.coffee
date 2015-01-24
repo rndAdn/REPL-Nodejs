@@ -1,4 +1,6 @@
 fs = require 'fs'
+REPL  = require '../Repl/ReplClass'
+REPLOcaml = require '../Repl/ReplOcaml'
 
 module.exports =
 class REPLView
@@ -17,3 +19,4 @@ class REPLView
     streamRetourRepl = fs.createReadStream("/tmp/Retour")
 
     @streamRetour.on('data',(data)->self.dealWithRetour(data))
+    @repl = new REPL(new REPLOcaml(),streamCmdRepl,streamRetourRepl)
