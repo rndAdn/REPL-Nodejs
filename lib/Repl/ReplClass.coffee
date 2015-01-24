@@ -48,6 +48,8 @@ class Repl
     writeInRepl:(cmd, write_cmd) ->
       #console.log(s)
       #@replProcess.stdin.write(s)
+      if cmd.slice(-1) != '\n'
+          cmd = cmd+'\n'
       lines = cmd.split('\n')
       for element in lines
         @cmdQueue.push([element+'\n',write_cmd])
