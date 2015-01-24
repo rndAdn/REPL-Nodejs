@@ -37,4 +37,4 @@ module.exports = MyREPL =
 
   create: ->
     console.log 'create'
-    new REPLView(atom.workspace.getActivePane())
+    new REPLView(atom.workspace.getActiveTextEditor())
