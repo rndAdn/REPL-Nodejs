@@ -48,6 +48,7 @@ class Repl
     writeInRepl:(cmd, write_cmd) ->
       #console.log(cmd)
       #@replProcess.stdin.write(s)
+
       if write_cmd
         if cmd.slice(-@endSequence.length) != @endSequence
           cmd = cmd+@endSequence
