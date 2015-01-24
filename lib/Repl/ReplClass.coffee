@@ -6,15 +6,16 @@ class Repl
 
     processCmd:()->
       #console.log('2')
+      process.stdout.write(@prompt)
       if(@cmdQueue.length > 0)
         cmd = @cmdQueue.shift()
-        @print += @prompt+cmd
+        @print += cmd
         @replProcess.stdin.write(cmd)
 
     processOutputData:(data) ->
       #console.log(@prompt)
       @print += ""+data
-      console.log(@print)
+      process.stdout.write(@print)
       @print = ""
       @processCmd()
       #@prompt = true
@@ -37,7 +38,7 @@ class Repl
       @replProcess.stdout.on('data', (data)->self.processOutputData(data))
       @replProcess.stderr.on('data', (data)->self.processErrorData(data))
       @replProcess.on('close', ()->self.closeRepl())
-      console.log(@print)
+      process.stdout.write(@print)
 
 myrepl = new Repl('ocaml',['-noprompt'],"# ")
 myrepl.writeInRepl("let _ = 2*2;;\n")
