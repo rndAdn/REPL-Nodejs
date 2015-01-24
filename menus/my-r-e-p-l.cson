@@ -1,0 +1,22 @@
+# See https://atom.io/docs/latest/creating-a-package#menus for more details
+'context-menu':
+  'atom-text-editor': [
+    {
+      'label': 'Toggle my-r-e-p-l'
+      'command': 'my-r-e-p-l:toggle'
+    }
+  ]
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'my-r-e-p-l'
+      'submenu': [
+        {
+          'label': 'Toggle'
+          'command': 'my-r-e-p-l:toggle'
+        }
+      ]
+    ]
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "name": "my-r-e-p-l",
+  "main": "./lib/my-r-e-p-l",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "activationCommands": {
+    "atom-workspace": "my-r-e-p-l:toggle"
+  },
+  "repository": "https://github.com/atom/my-r-e-p-l",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+  }
+}
