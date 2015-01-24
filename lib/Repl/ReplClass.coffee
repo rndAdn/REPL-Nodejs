@@ -46,11 +46,18 @@ class Repl
       console.log('child process exited with code ' + code)
 
     writeInRepl:(cmd, write_cmd) ->
-      #console.log(s)
+      #console.log(cmd)
       #@replProcess.stdin.write(s)
-      lines = cmd.split(@endSequence)
-      for element in lines
-        @cmdQueue.push([element+@endSequence,write_cmd])
+      if write_cmd
+        if cmd.slice(-@endSequence.length) != @endSequence
+          cmd = cmd+@endSequence
+        lines = cmd.split(@endSequence)
+        for element in lines
+          if(element != "")
+            @cmdQueue.push([element+@endSequence,write_cmd])
+      else
+        console.log("1"+cmd)
+        @cmdQueue.push([cmd,write_cmd])
       if(!@processing)
         @processCmd()
 

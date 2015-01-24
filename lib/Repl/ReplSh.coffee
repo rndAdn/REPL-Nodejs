@@ -5,5 +5,5 @@ class ReplSh extends ReplFormat
     constructor:() ->
       @cmd = "bash"
       @args = ['-i']
-      @prompt = ""
+      @prompt = "bash $ "
       @endSequence = '\n'

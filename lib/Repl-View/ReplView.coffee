@@ -1,6 +1,6 @@
 fs = require 'fs'
 REPL  = require '../Repl/ReplClass'
-REPLOcaml = require '../Repl/ReplOcaml'
+REPLOcaml = require '../Repl/Replsh'
 
 module.exports =
 class REPLView
