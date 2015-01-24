@@ -18,6 +18,7 @@ class Repl
         @replProcess.stdin.write(cmd)
         console.log(@endSequence)
         if cmd.slice(-@endSequence.length) != @endSequence
+            @processing = false
             @processCmd()
       else
         @processing = false

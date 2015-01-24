@@ -4,16 +4,25 @@ REPLOcaml = require '../Repl/ReplOcaml'
 
 module.exports =
 class REPLView
+  '''
+  dealWithInsert :(event) =>
+    buf = @replTextEditor.getCursorBufferPosition()
+    if(@lastBuf.row>buf.row || @lastBuf.column>buf.column)
+      event.cancel()
+  '''
 
   dealWithBuffer :() =>
     buf = @replTextEditor.getCursorBufferPosition()
     #console.log(@lastBuf)
     if(@lastBuf.row<buf.row)
-      @repl.writeInRepl(@replTextEditor.getTextInBufferRange([@lastBuf,buf]))
+      @repl.writeInRepl(@replTextEditor.getTextInBufferRange([@lastBuf,buf],true))
+      @lastBuf = buf
 
   setTextEditor :(textEditor) =>
+    self = this
     @replTextEditor = textEditor
     @replTextEditor.onDidStopChanging(@dealWithBuffer)
+    #@replTextEditor.onWillInsertText(@dealWithInsert)
 
   setRepl :(repl) =>
     @repl = repl
