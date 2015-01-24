@@ -2,6 +2,7 @@ fs = require 'fs'
 child_process = require 'child_process'
 #read_line = require 'read_line'
 
+module.exports =
 class ReplFormat
 
     constructor:() ->

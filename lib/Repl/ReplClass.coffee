@@ -1,7 +1,7 @@
 fs = require 'fs'
 child_process = require 'child_process'
 #read_line = require 'read_line'
-Format = require './ReplFormat.coffee'
+ReplFormat = require './ReplFormat'
 
 class Repl
 
@@ -51,7 +51,7 @@ class Repl
       @replProcess.on('close', ()->self.closeRepl())
       process.stdout.write(@print)
 
-ocaml = new Format.ReplFormat()
+ocaml = new ReplFormat()
 myrepl = new Repl(ocaml)
 myrepl.writeInRepl("let a l = match l with\n| _ -> true;;\n")
 #myrepl.writeInRepl("| _ -> true;;\n")
