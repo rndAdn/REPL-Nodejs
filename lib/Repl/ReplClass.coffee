@@ -7,19 +7,21 @@ ReplOcaml = require './ReplOcaml'
 module.exports =
 class Repl
 
-    processCmd:(write_cmd)->
-      #console.log('2')
-      if(@processing)
+    processCmd:()->
+      if(@processing) # show prompt
         @retour(@prompt)
-      if(@cmdQueue.length > 0)
+      if(@cmdQueue.length > 0) # list of cmd to execute
         @processing = true
         cmd = @cmdQueue.shift()
-        if (write_cmd)
-            @print += cmd
-        @replProcess.stdin.write(cmd)
+        if (cmd[1]) # re-write cmd
+            @print += cmd[0]
+        @replProcess.stdin.write(cmd[0]) # send cmd to pipe
         if cmd.slice(-@endSequence.length) != @endSequence
+            '''
+            if not ending with end sequence execute next one
+            '''
             @processing = false
-            @processCmd(write_cmd)
+            @processCmd() #
       else
         @processing = false
 
@@ -46,9 +48,11 @@ class Repl
     writeInRepl:(cmd, write_cmd) ->
       #console.log(s)
       #@replProcess.stdin.write(s)
-      @cmdQueue.push(cmd)
+      lines = cmd.split('\n')
+      for element in lines
+        @cmdQueue.push([element+'\n',write_cmd])
       if(!@processing)
-        @processCmd(write_cmd)
+        @processCmd()
 
     constructor:(r_format, @retour) ->
       self = this
