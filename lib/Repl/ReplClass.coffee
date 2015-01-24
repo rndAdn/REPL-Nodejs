@@ -16,7 +16,7 @@ class Repl
         if (cmd[1]) # re-write cmd
             @print += cmd[0]
         @replProcess.stdin.write(cmd[0]) # send cmd to pipe
-        if cmd.slice(-@endSequence.length) != @endSequence
+        if cmd[0].slice(-@endSequence.length) != @endSequence
             '''
             if not ending with end sequence execute next one
             '''
@@ -48,9 +48,9 @@ class Repl
     writeInRepl:(cmd, write_cmd) ->
       #console.log(s)
       #@replProcess.stdin.write(s)
-      lines = cmd.split('\n')
+      lines = cmd.split(@endSequence)
       for element in lines
-        @cmdQueue.push([element+'\n',write_cmd])
+        @cmdQueue.push([element+@endSequence,write_cmd])
       if(!@processing)
         @processCmd()
 
