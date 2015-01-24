@@ -6,11 +6,15 @@ class Repl
 
     processCmd:()->
       #console.log('2')
-      process.stdout.write(@prompt)
+      if(@processing)
+        process.stdout.write(@prompt)
       if(@cmdQueue.length > 0)
+        @processing = true
         cmd = @cmdQueue.shift()
         @print += cmd
         @replProcess.stdin.write(cmd)
+      else
+        @processing = false
 
     processOutputData:(data) ->
       #console.log(@prompt)
@@ -28,9 +32,12 @@ class Repl
       #console.log(s)
       #@replProcess.stdin.write(s)
       @cmdQueue.push(cmd)
+      if(!@processing)
+        @processCmd()
 
     constructor:(cmd,args,prompt) ->
       self = this
+      @processing = true
       @prompt = prompt
       @print = ""
       @cmdQueue =   new Array()
