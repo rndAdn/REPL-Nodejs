@@ -14,8 +14,10 @@ class Repl
         @processing = true
         cmd = @cmdQueue.shift()
         @print += cmd
-        if cmd.slice(-@endSequence.length) == @endSequence
-            @replProcess.stdin.write(cmd)
+        @replProcess.stdin.write(cmd)
+        console.log(@endSequence)
+        if cmd.slice(-@endSequence.length) != @endSequence
+            @processCmd()
       else
         @processing = false
 
