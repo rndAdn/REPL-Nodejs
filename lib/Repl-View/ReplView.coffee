@@ -46,4 +46,4 @@ class REPLView
           #console.log "reste"
           #console.log(textEditor.constructor.name)
           self.setTextEditor(textEditor)
-          self.setRepl(new REPL(new REPLFormat("../../Repls/replR.js"),self.dealWithRetour))
+          self.setRepl(new REPL(new REPLFormat("../../Repls/replOcaml.js"),self.dealWithRetour))
