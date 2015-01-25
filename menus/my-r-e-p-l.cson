@@ -14,7 +14,7 @@
       'submenu': [
         {
           'label': 'Create'
-          'command': 'my-r-e-p-l:create'
+          'command': 'my-r-e-p-l:createFromFile'
         }
         {
           'label': 'Interprete File'

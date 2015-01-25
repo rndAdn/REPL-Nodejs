@@ -18,7 +18,7 @@ module.exports = MyREPL =
 
      # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:toggle': => @toggle()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:create': => @create()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:createFromFile': => @createFromFile()
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:interprete': => @interprete()
 
   deactivate: ->
@@ -37,7 +37,7 @@ module.exports = MyREPL =
     else
       @modalPanel.show()
 
-  create: ->
+  createFromFile: ->
     txtEditor = atom.workspace.getActiveTextEditor()
     @map.push([txtEditor,new REPLView(txtEditor)])
 
@@ -49,4 +49,4 @@ module.exports = MyREPL =
     if(repl?)
       repl.interprete()
     else
-      @create()
+      @createFromFile()
