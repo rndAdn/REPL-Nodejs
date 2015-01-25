@@ -57,7 +57,16 @@ class REPLView
 
   constructor: (@grammarName,file,callBackCreate) ->
     self = this
+<<<<<<< HEAD
     format = new REPLFormat("../../Repls/"+file+".js") # new REPLFormat(@key)
+=======
+<<<<<<< HEAD
+    format = new REPLFormat("../../Repls/"+file) # new REPLFormat(@key)
+=======
+    if(file != "not")
+      format = new REPLFormat("../../Repls/"+file+".js") # new REPLFormat(@key)
+>>>>>>> e9ba6d7c02d8206fb17cd167cb0c8f30c7698642
+>>>>>>> c46348ff65f7a7fc5f996317185ea8955df98577
     @lastBuf = 0
     @minimaltext = ""
     uri = "REPL: "+@grammarName
