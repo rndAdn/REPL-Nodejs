@@ -52,10 +52,7 @@ module.exports = MyREPL =
 
   interprete: ->
     txtEditor = atom.workspace.getActiveTextEditor()
-    for element in @map
-      if (element[0] == txtEditor)
-        repl = element[1]
-    if(repl?)
-      repl.interprete()
+    if (txtEditor?)
+      grammarName = txtEditor.getGrammar().name
     else
-      @create()
+      console.log("fuck u")
