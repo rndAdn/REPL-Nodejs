@@ -16,6 +16,8 @@ class REPLView
     console.log(select)
     @repl.writeInRepl(select,true)
   '''
+  remove :() =>
+    @repl.remove()
 
   dealWithBuffer :() =>
     buf = @replTextEditor.getCursorBufferPosition()

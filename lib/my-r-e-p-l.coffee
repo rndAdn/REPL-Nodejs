@@ -45,7 +45,7 @@ module.exports = MyREPL =
       if (atom.workspace.getActiveTextEditor()?)
         grammarName = atom.workspace.getActiveTextEditor().getGrammar().name
       else
-        console.log("erreur")
+        grammarName = "bash"
     console.log(grammarName)
     @replManager.createRepl(grammarName)
     #@map.push([txtEditor,new REPLView(txtEditor)])

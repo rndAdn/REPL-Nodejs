@@ -27,8 +27,11 @@ class ReplManager
     replView.replTextEditor.onDidDestroy(()=>
       if(@map[replView.grammarName] == replView)
         @map[replView.grammarName] = null
+        replView.remove()
       )
 
   createRepl:(grammarName) =>
     if (@grammarNameSupport(grammarName))
       @map[grammarName] = new REPLView(grammarName,@callBackCreate)
+    else
+      console.log("erreur")
