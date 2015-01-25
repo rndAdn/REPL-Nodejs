@@ -9,12 +9,12 @@
 # https://atom.io/docs/latest/advanced/keymaps
 'atom-workspace':
     'ctrl-y ctrl-s': 'my-r-e-p-l:create',
-    
+
     'ctrl-y ctrl-o': 'my-r-e-p-l:Repl Ocaml',
     'ctrl-y ctrl-p': 'my-r-e-p-l:Repl Python',
     'ctrl-y ctrl-b': 'my-r-e-p-l:Repl Bash',
     'ctrl-y ctrl-c': 'my-r-e-p-l:Repl Coffee',
     'ctrl-y ctrl-r': 'my-r-e-p-l:Repl R',
 
-    'ctrl-y ctrl-i': 'my-r-e-p-l:createFromFile',
+    'ctrl-y ctrl-s': 'my-r-e-p-l:createFromFile',
     'ctrl-y ctrl-f': 'my-r-e-p-l:interprete'
