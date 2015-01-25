@@ -1,6 +1,6 @@
 REPLView = require './Repl-View/ReplView'
 
-dico = {"Shell Session":'replBash','CoffeeScript': "replCoffee" , "OCaml":'replOcaml', "R":'replR', "Python Console":"replPython"}
+dico = {"Shell Session":'replBash','CoffeeScript': "replCoffee" , "OCaml":'replOcaml', "R":'replR', "Python Console":"not", "Python":"not"}
 
 module.exports =
 class ReplManager
@@ -38,7 +38,7 @@ class ReplManager
 
   createRepl:(grammarName) =>
     if (@grammarNameSupport(grammarName))
-      console.log(dico[grammarName])
+      #console.log(dico[grammarName])
       @map[grammarName] = new REPLView(grammarName,dico[grammarName],@callBackCreate)
       #@map[grammarName] = new REPLView(grammarName,@callBackCreate)
     else
