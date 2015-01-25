@@ -1,5 +1,5 @@
 module.exports =
 cmd = "coffee"
-prompt = "coffee > "
+prompt = ""
 args = ['-i']
 endSequence = '\n' // need Check

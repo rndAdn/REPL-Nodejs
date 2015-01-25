@@ -28,10 +28,18 @@ class REPLView
       @repl.writeInRepl(@replTextEditor.getTextInBufferRange([@lastBuf,buf],false))
       @lastBuf = buf
 
+  setGrammar : =>
+    grammars = atom.grammars.getGrammars()
+    #console.log(grammars[0])
+    for grammar in grammars
+      if (grammar.name ==  @grammarName)
+        @replTextEditor.setGrammar(grammar)
+        return
+
   setTextEditor :(textEditor) =>
-    self = this
     @replTextEditor = textEditor
     @replTextEditor.onDidStopChanging(@dealWithBuffer)
+    @setGrammar()
     #@replTextEditor.onWillInsertText(@dealWithInsert)
 
   setRepl :(repl) =>
