@@ -1,8 +1,5 @@
 fs = require 'fs'
 child_process = require 'child_process'
-#read_line = require 'read_line'
-ReplSh = require './ReplSh'
-ReplOcaml = require './ReplOcaml'
 
 module.exports =
 class Repl

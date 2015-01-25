@@ -1,6 +1,5 @@
 fs = require 'fs'
 child_process = require 'child_process'
-#read_line = require 'read_line'
 
 class ReplPython
 
@@ -41,6 +40,8 @@ class ReplPython
       @replProcess.on('close', ()->self.closeRepl())
       console.log(@print)
 
+'''
 myrepl = new ReplPython('python',['-i'])
 myrepl.writeInRepl("2*2\n")
 myrepl.writeInRepl("3*2\n")
+'''

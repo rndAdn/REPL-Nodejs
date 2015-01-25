@@ -1,6 +1,6 @@
 fs = require 'fs'
 REPL  = require '../Repl/ReplClass'
-REPLOcaml = require '../Repl/Replsh'
+REPLFormat = require '../Repl/ReplFormat'
 
 module.exports =
 class REPLView
@@ -46,4 +46,4 @@ class REPLView
           #console.log "reste"
           #console.log(textEditor.constructor.name)
           self.setTextEditor(textEditor)
-          self.setRepl(new REPL(new REPLOcaml(),self.dealWithRetour))
+          self.setRepl(new REPL(new REPLFormat("../../Repls/replOcaml.js"),self.dealWithRetour))

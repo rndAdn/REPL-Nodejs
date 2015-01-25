@@ -1,8 +1,13 @@
+fs = require 'fs'
+
 module.exports =
 class ReplFormat
 
-    constructor:() ->
-      @cmd = ""
-      @args = []
-      @prompt = ""
-      @endSequence = ''
+    constructor:(conf_path) ->
+        # TODO: check conf_path exist ?
+        config = require conf_path
+        # TODO: check cmd, args ... existe
+        @cmd = cmd
+        @args = args
+        @prompt = prompt
+        @endSequence = endSequence
