@@ -1,4 +1,4 @@
-MyREPL = require '../lib/my-r-e-p-l'
+MyREPL = require '../lib/Repl'
 
 # Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
 #
@@ -10,30 +10,30 @@ describe "MyREPL", ->
 
   beforeEach ->
     workspaceElement = atom.views.getView(atom.workspace)
-    activationPromise = atom.packages.activatePackage('my-r-e-p-l')
+    activationPromise = atom.packages.activatePackage('Repl')
 
-  describe "when the my-r-e-p-l:toggle event is triggered", ->
+  describe "when the Repl:toggle event is triggered", ->
     it "hides and shows the modal panel", ->
       # Before the activation event the view is not on the DOM, and no panel
       # has been created
-      expect(workspaceElement.querySelector('.my-r-e-p-l')).not.toExist()
+      expect(workspaceElement.querySelector('.Repl')).not.toExist()
 
       # This is an activation event, triggering it will cause the package to be
       # activated.
-      atom.commands.dispatch workspaceElement, 'my-r-e-p-l:toggle'
+      atom.commands.dispatch workspaceElement, 'Repl:toggle'
 
       waitsForPromise ->
         activationPromise
 
       runs ->
-        expect(workspaceElement.querySelector('.my-r-e-p-l')).toExist()
+        expect(workspaceElement.querySelector('.Repl')).toExist()
 
-        myREPLElement = workspaceElement.querySelector('.my-r-e-p-l')
+        myREPLElement = workspaceElement.querySelector('.Repl')
         expect(myREPLElement).toExist()
 
         myREPLPanel = atom.workspace.panelForItem(myREPLElement)
         expect(myREPLPanel.isVisible()).toBe true
-        atom.commands.dispatch workspaceElement, 'my-r-e-p-l:toggle'
+        atom.commands.dispatch workspaceElement, 'Repl:toggle'
         expect(myREPLPanel.isVisible()).toBe false
 
     it "hides and shows the view", ->
@@ -45,18 +45,18 @@ describe "MyREPL", ->
       # workspaceElement to the DOM are generally slower than those off DOM.
       jasmine.attachToDOM(workspaceElement)
 
-      expect(workspaceElement.querySelector('.my-r-e-p-l')).not.toExist()
+      expect(workspaceElement.querySelector('.Repl')).not.toExist()
 
       # This is an activation event, triggering it causes the package to be
       # activated.
-      atom.commands.dispatch workspaceElement, 'my-r-e-p-l:toggle'
+      atom.commands.dispatch workspaceElement, 'Repl:toggle'
 
       waitsForPromise ->
         activationPromise
 
       runs ->
         # Now we can test for view visibility
-        myREPLElement = workspaceElement.querySelector('.my-r-e-p-l')
+        myREPLElement = workspaceElement.querySelector('.Repl')
         expect(myREPLElement).toBeVisible()
-        atom.commands.dispatch workspaceElement, 'my-r-e-p-l:toggle'
+        atom.commands.dispatch workspaceElement, 'Repl:toggle'
         expect(myREPLElement).not.toBeVisible()

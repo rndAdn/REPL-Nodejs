@@ -1,4 +1,4 @@
-# my-r-e-p-l package
+# Repl package
 REPL **(Read-Eval-Print-Loop)** package.
 ## Status
 **This package is still in early stage of development.**
@@ -10,12 +10,13 @@ Search for ```$``` within package search in the Settings View.
 
 ## Keybindings
 ###Launch REPL
-* ```ctrl-y ctrl-s``` Launch default Repl (**'Bash'**)
+* ```ctrl-y ctrl-d``` Launch default Repl (**'Bash'**)
 * ```ctrl-y ctrl-o``` Launch OCaml Repl
 * ```ctrl-y ctrl-p``` Launch Python Repl
 * ```ctrl-y ctrl-b``` Launch Bash Repl
 * ```ctrl-y ctrl-c``` Launch CoffeeScript Repl
 * ```ctrl-y ctrl-r``` Launch R Repl
+* ```ctrl-y ctrl-n``` Launch Node Repl
 
 ###Evaluate in REPL:
 * ```ctrl-y ctrl-s``` Evaluate Selection
@@ -27,3 +28,5 @@ Search for ```$``` within package search in the Settings View.
 * Bash
 * Coffee
 * R
+* Python
+* Node

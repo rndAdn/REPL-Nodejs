@@ -1,4 +1,4 @@
-#MyREPLView = require './my-r-e-p-l-view'
+#MyREPLView = require './Repl-view'
 REPLView = require './Repl-View/ReplView'
 REPLManager = require './ReplManager'
 {CompositeDisposable} = require 'atom'
@@ -19,17 +19,16 @@ module.exports = MyREPL =
     @subscriptions = new CompositeDisposable
 
      # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Python': => @create("Python")
-    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Coffee': => @create("CoffeeScript")
-    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Bash': => @create('Shell Session')
-    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Ocaml': => @create('OCaml')
-    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl R': => @create('R')
-    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Node': => @create('Node')
+    @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Python': => @create("Python")
+    @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Coffee': => @create("CoffeeScript")
+    @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Bash': => @create('Shell Session')
+    @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Ocaml': => @create('OCaml')
+    @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl R': => @create('R')
+    @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Node': => @create('Node')
 
-    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:toggle': => @toggle()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:create': => @create()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:interpreteSelect': => @interpreteSelect()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:interpreteFile': => @interpreteFile()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:create': => @create()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:interpreteSelect': => @interpreteSelect()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:interpreteFile': => @interpreteFile()
 
   deactivate: ->
     #@modalPanel.destroy()

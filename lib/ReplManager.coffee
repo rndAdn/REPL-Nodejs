@@ -19,7 +19,6 @@ class ReplManager
       console.log("fuck u 1")
 
   grammarNameSupport : (grammarName) ->
-      console.log(dico[grammarName])
       return (dico[grammarName]?)
 
 

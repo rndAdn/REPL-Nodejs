@@ -1,6 +1,6 @@
 {
-  "name": "my-r-e-p-l",
-  "main": "./lib/my-r-e-p-l",
+  "name": "Repl",
+  "main": "./lib/Repl.coffee",
   "version": "0.0.0",
   "description": "A short description of your package",
   "activationCommands": {

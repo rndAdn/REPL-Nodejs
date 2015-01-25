@@ -1,4 +1,4 @@
-MyREPLView = require '../lib/my-r-e-p-l-view'
+MyREPLView = require '../lib/Repl-view'
 
 describe "MyREPLView", ->
   it "has one valid test", ->

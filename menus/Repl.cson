@@ -2,51 +2,51 @@
 'context-menu':
   'atom-text-editor': [
     {
-      'label': 'Create my-r-e-p-l'
-      'command': 'my-r-e-p-l:toggle'
+      'label': 'Create Repl'
+      'command': 'Repl:toggle'
     }
   ]
 'menu': [
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'my-r-e-p-l'
+      'label': 'Repl'
       'submenu': [
         {
             'label': 'Create'
-            'command': 'my-r-e-p-l:create'
+            'command': 'Repl:create'
         }
         {
           'label': 'Repl Python'
-          'command': 'my-r-e-p-l:Repl Python'
+          'command': 'Repl:Repl Python'
         }
         {
           'label': 'Repl Ocaml'
-          'command': 'my-r-e-p-l:Repl Ocaml'
+          'command': 'Repl:Repl Ocaml'
         }
         {
           'label': 'Repl Bash'
-          'command': 'my-r-e-p-l:Repl Bash'
+          'command': 'Repl:Repl Bash'
         }
         {
           'label': 'Repl Coffee'
-          'command': 'my-r-e-p-l:Repl Coffee'
+          'command': 'Repl:Repl Coffee'
         }
         {
           'label': 'Repl R'
-          'command': 'my-r-e-p-l:Repl R'
+          'command': 'Repl:Repl R'
         }
         {
           'label': 'Repl Node'
-          'command': 'my-r-e-p-l:Repl Node'
+          'command': 'Repl:Repl Node'
         }
         {
           'label': 'Interprete File'
-          'command': 'my-r-e-p-l:interpreteFile'
+          'command': 'Repl:interpreteFile'
         }
         {
           'label': 'Interprete Selection'
-          'command': 'my-r-e-p-l:interpreteSelect'
+          'command': 'Repl:interpreteSelect'
         }
       ]
     ]
