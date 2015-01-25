@@ -1,16 +1,15 @@
 {
   "name": "Repl",
   "main": "./lib/Repl.coffee",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A short description of your package",
-  "activationCommands": {
-  },
+  "activationCommands": {},
   "repository": "https://github.com/T-800/REPL-Nodejs.git",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
   },
   "dependencies": {
-      "strip-ansi": "2.0.1"
+    "strip-ansi": "2.0.1"
   }
 }
