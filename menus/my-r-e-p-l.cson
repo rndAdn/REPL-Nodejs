@@ -21,6 +21,10 @@
           'command': 'my-r-e-p-l:Repl Python'
         }
         {
+          'label': 'Repl Ocaml'
+          'command': 'my-r-e-p-l:Repl Ocaml'
+        }
+        {
           'label': 'Repl Bash'
           'command': 'my-r-e-p-l:Repl Bash'
         }
