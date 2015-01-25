@@ -16,10 +16,12 @@ class ReplManager
     else
       false
 
-  callBackCreate: (replView) =>
+  callBackCreate: (replView,pane) =>
     console.log("ici")
-    replView.replTextEditor.observeCursors((cursor)=>
-      @map[replView.grammarName] = replView
+    pane.onDidActivate(()=>
+      if(pane.getActiveItem() == replView.replTextEditor)
+        console.log('now')
+        @map[replView.grammarName] = replView
       )
     console.log("ici")
     replView.replTextEditor.onDidDestroy(()=>

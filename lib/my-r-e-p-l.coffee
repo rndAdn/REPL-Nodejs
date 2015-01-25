@@ -40,10 +40,14 @@ module.exports = MyREPL =
       @modalPanel.show()
 
 
-  create: ->
-    grammarName = atom.workspace.getActiveTextEditor().getGrammar().name
-    console.log(grammarName)
-    @replManager.createRepl(grammarName)
+  create: (grammarName) ->
+    if(!grammarName?)
+      grammarName = atom.workspace.getActiveTextEditor().getGrammar().name
+    if(grammarName?)
+      console.log(grammarName)
+      @replManager.createRepl(grammarName)
+    else
+      console.log("erreur")
     #@map.push([txtEditor,new REPLView(txtEditor)])
 
   interprete: ->

@@ -45,6 +45,7 @@ class REPLView
     console.log("Ok")
     uri = "REPL: "+@grammarName
     atom.workspace.open(uri,split:'right').done (textEditor) =>
+          pane = atom.workspace.getActivePane()
           self.setTextEditor(textEditor)
           self.setRepl(new REPL(format,self.dealWithRetour))
-          callBackCreate(self)
+          callBackCreate(self,pane)
