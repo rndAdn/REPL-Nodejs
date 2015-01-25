@@ -1,5 +1,6 @@
 MyREPLView = require './my-r-e-p-l-view'
 REPLView = require './Repl-View/ReplView'
+REPLManager = require './ReplManager'
 {CompositeDisposable} = require 'atom'
 
 module.exports = MyREPL =
@@ -10,6 +11,7 @@ module.exports = MyREPL =
   activate: (state) ->
     console.log("activate")
     @map = new Array()
+    @replManager = new REPLManager()
     @myREPLView = new MyREPLView(state.myREPLViewState)
     @modalPanel = atom.workspace.addRightPanel(item: @myREPLView.getElement(), visible: false)
 
@@ -18,7 +20,7 @@ module.exports = MyREPL =
 
      # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:toggle': => @toggle()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:createFromFile': => @createFromFile()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:create': => @create()
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:interprete': => @interprete()
 
   deactivate: ->
@@ -37,9 +39,12 @@ module.exports = MyREPL =
     else
       @modalPanel.show()
 
-  createFromFile: ->
-    txtEditor = atom.workspace.getActiveTextEditor()
-    @map.push([txtEditor,new REPLView(txtEditor)])
+
+  create: ->
+    grammarName = atom.workspace.getActiveTextEditor().getGrammar().name
+    console.log(grammarName)
+    @replManager.createRepl(grammarName)
+    #@map.push([txtEditor,new REPLView(txtEditor)])
 
   interprete: ->
     txtEditor = atom.workspace.getActiveTextEditor()
@@ -49,4 +54,4 @@ module.exports = MyREPL =
     if(repl?)
       repl.interprete()
     else
-      @createFromFile()
+      @create()
