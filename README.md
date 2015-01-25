@@ -3,10 +3,10 @@ REPL **(Read-Eval-Print-Loop)** package.
 ## Status
 **This package is still in early stage of development.**
 ## Installation
-``` apm install $ ```
+``` apm install Repl ```
 or
 
-Search for ```$``` within package search in the Settings View.
+Search for ```Repl``` within package search in the Settings View.
 
 ## Keybindings
 ###Launch REPL
