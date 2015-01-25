@@ -25,6 +25,7 @@ class REPLView
     buf = @replTextEditor.getCursorBufferPosition()
     #console.log(@lastBuf)
     if(@lastBuf.row<buf.row)
+      #console.log(currentText.substring(@minimaltext.length,currentText.length))
       @repl.writeInRepl(@replTextEditor.getTextInBufferRange([@lastBuf,buf],false))
       @lastBuf = buf
 
