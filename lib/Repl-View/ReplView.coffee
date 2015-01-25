@@ -1,5 +1,6 @@
 fs = require 'fs'
 REPL  = require '../Repl/ReplClass'
+REPLPython  = require '../Repl/ReplClassPython'
 REPLFormat = require '../Repl/ReplFormat'
 stripAnsi = require 'strip-ansi'
 
@@ -35,6 +36,7 @@ class REPLView
     #console.log(grammars[0])
     for grammar in grammars
       if (grammar.name ==  @grammarName)
+        console.log(grammar)
         @replTextEditor.setGrammar(grammar)
         return
 
@@ -55,12 +57,23 @@ class REPLView
 
   constructor: (@grammarName,file,callBackCreate) ->
     self = this
+<<<<<<< HEAD
     format = new REPLFormat("../../Repls/"+file) # new REPLFormat(@key)
+=======
+    if(file != "not")
+      format = new REPLFormat("../../Repls/"+file+".js") # new REPLFormat(@key)
+>>>>>>> e9ba6d7c02d8206fb17cd167cb0c8f30c7698642
     @lastBuf = 0
     @minimaltext = ""
     uri = "REPL: "+@grammarName
     atom.workspace.open(uri,split:'right').done (textEditor) =>
           pane = atom.workspace.getActivePane()
           self.setTextEditor(textEditor)
-          self.setRepl(new REPL(format,self.dealWithRetour))
+          if(file != "not")
+            #console.log("hereFEFEFF")
+            self.setRepl(new REPL(format,self.dealWithRetour))
+          else if(self.grammarName == "Python Console")
+          #  console.log("hereFEFEFF")
+            self.setRepl(new REPLPython(self.dealWithRetour))
+          #console.log("hereFEFEFF")
           callBackCreate(self,pane)
