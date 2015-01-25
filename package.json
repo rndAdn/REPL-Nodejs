@@ -6,7 +6,7 @@
   "activationCommands": {
     "atom-workspace": "my-r-e-p-l:toggle"
   },
-  "repository": "https://github.com/atom/my-r-e-p-l",
+  "repository": "https://github.com/T-800/REPL-Nodejs.git",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"

@@ -13,8 +13,24 @@
       'label': 'my-r-e-p-l'
       'submenu': [
         {
-          'label': 'Create'
-          'command': 'my-r-e-p-l:create'
+            'label': 'Create'
+            'command': 'my-r-e-p-l:create'
+        }
+        {
+          'label': 'Repl Python'
+          'command': 'my-r-e-p-l:Repl Python'
+        }
+        {
+          'label': 'Repl Bash'
+          'command': 'my-r-e-p-l:Repl Bash'
+        }
+        {
+          'label': 'Repl Coffee'
+          'command': 'my-r-e-p-l:Repl Coffee'
+        }
+        {
+          'label': 'Repl R'
+          'command': 'my-r-e-p-l:Repl R'
         }
         {
           'label': 'Interprete File'
