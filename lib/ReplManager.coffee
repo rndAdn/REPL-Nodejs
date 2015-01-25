@@ -1,6 +1,6 @@
 REPLView = require './Repl-View/ReplView'
 
-dico = {"Shell Session":'replBash','CoffeeScript': "replCoffee" , "OCaml":'replOcaml', "R":'replR', "Python Console":"replPython"}
+dico = require "./ReplList.js"
 
 module.exports =
 class ReplManager

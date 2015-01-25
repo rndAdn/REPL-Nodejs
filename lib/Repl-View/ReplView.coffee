@@ -55,7 +55,7 @@ class REPLView
 
   constructor: (@grammarName,file,callBackCreate) ->
     self = this
-    format = new REPLFormat("../../Repls/"+file+".js") # new REPLFormat(@key)
+    format = new REPLFormat("../../Repls/"+file) # new REPLFormat(@key)
     @lastBuf = 0
     @minimaltext = ""
     uri = "REPL: "+@grammarName
