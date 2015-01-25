@@ -1,6 +1,6 @@
 REPLView = require './Repl-View/ReplView'
 
-dico = {'replBash':"",'CoffeeScript': "ReplCoffee" , 'replOcaml': "", 'replR':""}
+dico = {'replBash':"",'CoffeeScript': "replCoffee" , 'replOcaml': "", 'replR':""}
 
 module.exports =
 class ReplManager
@@ -19,9 +19,8 @@ class ReplManager
 
   grammarNameSupport : (grammarName) ->
       console.log(dico[grammarName])
-      if (dico[grammarName]?)
-        return true
-      false
+      return (dico[grammarName]?)
+      
 
   callBackCreate: (replView,pane) =>
     console.log("ici")
