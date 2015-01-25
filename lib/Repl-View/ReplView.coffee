@@ -10,12 +10,10 @@ class REPLView
     if(@lastBuf.row>buf.row || @lastBuf.column>buf.column)
       event.cancel()
   '''
-  '''
-  interprete :() =>
-    select = @activeTextEditor.getSelectedText()
+  interprete :(select) =>
     console.log(select)
     @repl.writeInRepl(select,true)
-  '''
+
   remove :() =>
     @repl.remove()
 

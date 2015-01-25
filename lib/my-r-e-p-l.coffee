@@ -54,5 +54,6 @@ module.exports = MyREPL =
     txtEditor = atom.workspace.getActiveTextEditor()
     if (txtEditor?)
       grammarName = txtEditor.getGrammar().name
+      @replManager.interprete(txtEditor.getSelectedText(),grammarName)
     else
-      console.log("fuck u")
+      console.log("fuck u 2")

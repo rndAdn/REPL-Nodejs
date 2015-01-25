@@ -10,6 +10,13 @@ class ReplManager
     for k in key
       @map[k] = null
 
+  interprete : (select,grammarName) ->
+    replView = @map[grammarName]
+    if(replView?)
+      replView.interprete(select)
+    else
+      console.log("fuck u 1")
+
   grammarNameSupport : (grammarName) ->
     if grammarName in key
       true
