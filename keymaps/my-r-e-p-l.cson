@@ -8,4 +8,7 @@
 # For more detailed documentation see
 # https://atom.io/docs/latest/advanced/keymaps
 'atom-workspace':
-  'ctrl-alt-o': 'my-r-e-p-l:toggle'
+  'ctrl-y': 'my-r-e-p-l:toggle',
+  'ctrl-y ctrl-i': 'my-r-e-p-l:createFromFile',
+  'ctrl-y ctrl-f': 'my-r-e-p-l:interprete',
+  'ctrl-y ctrl-s': 'my-r-e-p-l:toggle'
