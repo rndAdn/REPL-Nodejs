@@ -10,6 +10,13 @@ class ReplManager
     for k,v in key
       @map[k] = null
 
+  interprete : (select,grammarName) ->
+    replView = @map[grammarName]
+    if(replView?)
+      replView.interprete(select)
+    else
+      console.log("fuck u 1")
+
   grammarNameSupport : (grammarName) ->
       for k,v in key
         if grammarName == k
@@ -27,9 +34,13 @@ class ReplManager
     replView.replTextEditor.onDidDestroy(()=>
       if(@map[replView.grammarName] == replView)
         @map[replView.grammarName] = null
+        replView.remove()
       )
 
   createRepl:(grammarName) =>
     if (@grammarNameSupport(grammarName))
       console.log("createRepl")
       @map[grammarName] = new REPLView(grammarName,key[grammarName],@callBackCreate)
+      @map[grammarName] = new REPLView(grammarName,@callBackCreate)
+    else
+      console.log("erreur")
