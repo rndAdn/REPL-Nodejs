@@ -42,12 +42,12 @@ module.exports = MyREPL =
 
   create: (grammarName) ->
     if(!grammarName?)
-      grammarName = atom.workspace.getActiveTextEditor().getGrammar().name
-    if(grammarName?)
-      console.log(grammarName)
-      @replManager.createRepl(grammarName)
-    else
-      console.log("erreur")
+      if (atom.workspace.getActiveTextEditor()?)
+        grammarName = atom.workspace.getActiveTextEditor().getGrammar().name
+      else
+        console.log("erreur")
+    console.log(grammarName)
+    @replManager.createRepl(grammarName)
     #@map.push([txtEditor,new REPLView(txtEditor)])
 
   interprete: ->
