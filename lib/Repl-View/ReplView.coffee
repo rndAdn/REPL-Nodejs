@@ -36,7 +36,7 @@ class REPLView
     #console.log(grammars[0])
     for grammar in grammars
       if (grammar.name ==  @grammarName)
-        console.log(grammar)
+        #console.log(grammar)
         @replTextEditor.setGrammar(grammar)
         return
 
@@ -57,19 +57,15 @@ class REPLView
 
   constructor: (@grammarName,file,callBackCreate) ->
     self = this
-    if(file != "not")
-      format = new REPLFormat("../../Repls/"+file+".js") # new REPLFormat(@key)
+    format = new REPLFormat("../../Repls/"+file+".js") # new REPLFormat(@key)
     @lastBuf = 0
     @minimaltext = ""
     uri = "REPL: "+@grammarName
     atom.workspace.open(uri,split:'right').done (textEditor) =>
           pane = atom.workspace.getActivePane()
           self.setTextEditor(textEditor)
-          if(file != "not")
-            #console.log("hereFEFEFF")
+          if(self.grammarName == "Python Console" || self.grammarName == "Python")
+            self.setRepl(new REPLPython(format,self.dealWithRetour))
+          else
             self.setRepl(new REPL(format,self.dealWithRetour))
-          else if(self.grammarName == "Python Console")
-          #  console.log("hereFEFEFF")
-            self.setRepl(new REPLPython(self.dealWithRetour))
-          #console.log("hereFEFEFF")
           callBackCreate(self,pane)
