@@ -10,11 +10,12 @@ class REPLView
     if(@lastBuf.row>buf.row || @lastBuf.column>buf.column)
       event.cancel()
   '''
-
+  '''
   interprete :() =>
     select = @activeTextEditor.getSelectedText()
     console.log(select)
     @repl.writeInRepl(select,true)
+  '''
 
   dealWithBuffer :() =>
     buf = @replTextEditor.getCursorBufferPosition()
@@ -37,13 +38,13 @@ class REPLView
     @replTextEditor.insertText(""+data)
     @lastBuf = @replTextEditor.getCursorBufferPosition()
 
-  constructor: (@activeTextEditor) ->
+  constructor: (@grammarName,callBackCreate) ->
     self = this
+    format = new REPLFormat("../../Repls/replOcaml.js") # new REPLFormat(@key)
     @lastBuf = 0
     console.log("Ok")
-    uri = "REPL: "+@activeTextEditor.getTitle()
+    uri = "REPL: "+@grammarName
     atom.workspace.open(uri,split:'right').done (textEditor) =>
-          #console.log "reste"
-          #console.log(textEditor.constructor.name)
           self.setTextEditor(textEditor)
-          self.setRepl(new REPL(new REPLFormat("../../Repls/replOcaml.js"),self.dealWithRetour))
+          self.setRepl(new REPL(format,self.dealWithRetour))
+          callBackCreate(self)

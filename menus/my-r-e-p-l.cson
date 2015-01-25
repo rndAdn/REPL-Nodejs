@@ -13,6 +13,10 @@
       'label': 'my-r-e-p-l'
       'submenu': [
         {
+            'label': 'Create'
+            'command': 'my-r-e-p-l:create'
+        }
+        {
           'label': 'Repl Python'
           'command': 'my-r-e-p-l:Repl Python'
         }
