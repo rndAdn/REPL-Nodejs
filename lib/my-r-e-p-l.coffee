@@ -51,7 +51,7 @@ module.exports = MyREPL =
       if (atom.workspace.getActiveTextEditor()?)
         grammarName = atom.workspace.getActiveTextEditor().getGrammar().name
       else
-        console.log("erreur")
+        console.log("erreur1")
         grammarName = "bash"
     console.log("creat "+grammarName)
 
