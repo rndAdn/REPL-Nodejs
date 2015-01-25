@@ -1,6 +1,7 @@
 fs = require 'fs'
 REPL  = require '../Repl/ReplClass'
 REPLFormat = require '../Repl/ReplFormat'
+stripAnsi = require 'strip-ansi'
 
 module.exports =
 class REPLView
@@ -48,7 +49,7 @@ class REPLView
 
   dealWithRetour: (data) =>
     #console.log(@replTextEditor.constructor.name)
-    @replTextEditor.insertText(""+data)
+    @replTextEditor.insertText(stripAnsi(""+data))
     @lastBuf = @replTextEditor.getCursorBufferPosition()
     @minimaltext = @replTextEditor.getText()
 
