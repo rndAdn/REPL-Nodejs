@@ -38,11 +38,11 @@
         }
         {
           'label': 'Interprete File'
-          'command': 'my-r-e-p-l:interprete'
+          'command': 'my-r-e-p-l:interpreteFile'
         }
         {
           'label': 'Interprete Selection'
-          'command': 'my-r-e-p-l:toggle'
+          'command': 'my-r-e-p-l:interpreteSelect'
         }
       ]
     ]

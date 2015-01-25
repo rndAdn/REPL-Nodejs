@@ -19,7 +19,7 @@ module.exports = MyREPL =
     @subscriptions = new CompositeDisposable
 
      # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Python': => @create("Python Console")
+    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Python': => @create("Python")
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Coffee': => @create("CoffeeScript")
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Bash': => @create('Shell Session')
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Ocaml': => @create('OCaml')
@@ -27,7 +27,8 @@ module.exports = MyREPL =
 
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:toggle': => @toggle()
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:create': => @create()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:interprete': => @interprete()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:interpreteSelect': => @interpreteSelect()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:interpreteFile': => @interpreteFile()
 
   deactivate: ->
     @modalPanel.destroy()
@@ -57,10 +58,18 @@ module.exports = MyREPL =
     @replManager.createRepl(grammarName)
     #@map.push([txtEditor,new REPLView(txtEditor)])
 
-  interprete: ->
+  interpreteSelect: ->
     txtEditor = atom.workspace.getActiveTextEditor()
     if (txtEditor?)
       grammarName = txtEditor.getGrammar().name
       @replManager.interprete(txtEditor.getSelectedText(),grammarName)
     else
       console.log("fuck u 2")
+
+  interpreteFile: ->
+    txtEditor = atom.workspace.getActiveTextEditor()
+    if (txtEditor?)
+      grammarName = txtEditor.getGrammar().name
+      @replManager.interprete(txtEditor.getText(),grammarName)
+    else
+      console.log("fuck u 3")
