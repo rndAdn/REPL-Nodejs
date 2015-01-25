@@ -38,7 +38,7 @@ class ReplManager
 
   createRepl:(grammarName) =>
     if (@grammarNameSupport(grammarName))
-      console.log("createRepl")
+      console.log(dico[grammarName])
       @map[grammarName] = new REPLView(grammarName,dico[grammarName],@callBackCreate)
       #@map[grammarName] = new REPLView(grammarName,@callBackCreate)
     else
