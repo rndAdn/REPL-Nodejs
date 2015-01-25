@@ -4,6 +4,10 @@ child_process = require 'child_process'
 module.exports =
 class Repl
 
+    remove : () ->
+      console.log("kill")
+      @replProcess.kill('SIGKILL')
+
     processCmd:()->
       if(@processing) # show prompt
         @retour(@prompt)
