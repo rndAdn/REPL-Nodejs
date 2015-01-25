@@ -20,7 +20,7 @@ class ReplManager
   grammarNameSupport : (grammarName) ->
       console.log(dico[grammarName])
       return (dico[grammarName]?)
-      
+
 
   callBackCreate: (replView,pane) =>
     console.log("ici")
@@ -38,8 +38,8 @@ class ReplManager
 
   createRepl:(grammarName) =>
     if (@grammarNameSupport(grammarName))
-      console.log("createRepl")
+      console.log(dico[grammarName])
       @map[grammarName] = new REPLView(grammarName,dico[grammarName],@callBackCreate)
-      @map[grammarName] = new REPLView(grammarName,@callBackCreate)
+      #@map[grammarName] = new REPLView(grammarName,@callBackCreate)
     else
       console.log("erreur2")

@@ -45,7 +45,6 @@ class REPLView
 
   constructor: (@grammarName,file,callBackCreate) ->
     self = this
-    console.log("replView")
     format = new REPLFormat("../../Repls/"+file+".js") # new REPLFormat(@key)
     @lastBuf = 0
     @minimaltext = ""
