@@ -19,7 +19,7 @@ class ReplManager
 
   grammarNameSupport : (grammarName) ->
       console.log(dico[grammarName])
-      if (grammarName in dico)
+      if (dico[grammarName]?)
         return true
       false
 

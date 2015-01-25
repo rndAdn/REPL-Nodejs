@@ -1,5 +1,0 @@
-        OCaml version 4.02.1
-
-# let _  = 2 *2 ;;
-- : int = 4
-# 
