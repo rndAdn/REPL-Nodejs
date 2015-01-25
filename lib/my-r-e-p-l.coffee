@@ -1,19 +1,19 @@
-MyREPLView = require './my-r-e-p-l-view'
+#MyREPLView = require './my-r-e-p-l-view'
 REPLView = require './Repl-View/ReplView'
 REPLManager = require './ReplManager'
 {CompositeDisposable} = require 'atom'
 
 module.exports = MyREPL =
-  myREPLView: null
-  modalPanel: null
+  #myREPLView: null
+  #modalPanel: null
   subscriptions: null
 
   activate: (state) ->
     console.log("activate")
     @map = new Array()
     @replManager = new REPLManager()
-    @myREPLView = new MyREPLView(state.myREPLViewState)
-    @modalPanel = atom.workspace.addRightPanel(item: @myREPLView.getElement(), visible: false)
+    #@myREPLView = new MyREPLView(state.myREPLViewState)
+    #@modalPanel = atom.workspace.addRightPanel(item: @myREPLView.getElement(), visible: false)
 
      #Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
@@ -24,6 +24,7 @@ module.exports = MyREPL =
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Bash': => @create('Shell Session')
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Ocaml': => @create('OCaml')
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl R': => @create('R')
+    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Node': => @create('Node')
 
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:toggle': => @toggle()
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:create': => @create()
@@ -31,21 +32,12 @@ module.exports = MyREPL =
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:interpreteFile': => @interpreteFile()
 
   deactivate: ->
-    @modalPanel.destroy()
+    #@modalPanel.destroy()
     @subscriptions.dispose()
-    @myREPLView.destroy()
+    #@myREPLView.destroy()
 
   serialize: ->
-    myREPLViewState: @myREPLView.serialize()
-
-  toggle: ->
-    console.log 'MyREPL was toggled!'
-
-    if @modalPanel.isVisible()
-      @modalPanel.hide()
-    else
-      @modalPanel.show()
-
+    #myREPLViewState: @myREPLView.serialize()
 
   create: (grammarName) ->
     if(!grammarName?)

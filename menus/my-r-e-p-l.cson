@@ -37,6 +37,10 @@
           'command': 'my-r-e-p-l:Repl R'
         }
         {
+          'label': 'Repl Node'
+          'command': 'my-r-e-p-l:Repl Node'
+        }
+        {
           'label': 'Interprete File'
           'command': 'my-r-e-p-l:interpreteFile'
         }
