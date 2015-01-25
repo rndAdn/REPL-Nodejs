@@ -38,9 +38,10 @@ class REPLView
     @replTextEditor.insertText(""+data)
     @lastBuf = @replTextEditor.getCursorBufferPosition()
 
-  constructor: (@grammarName,callBackCreate) ->
+  constructor: (@grammarName,file,callBackCreate) ->
     self = this
-    format = new REPLFormat("../../Repls/replOcaml.js") # new REPLFormat(@key)
+    console.log("replView")
+    format = new REPLFormat("../../Repls/"+file+".js") # new REPLFormat(@key)
     @lastBuf = 0
     console.log("Ok")
     uri = "REPL: "+@grammarName

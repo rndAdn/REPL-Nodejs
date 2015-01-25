@@ -19,8 +19,14 @@ module.exports = MyREPL =
     @subscriptions = new CompositeDisposable
 
      # Register command that toggles this view
+    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Python': => @create("Python")
+    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Coffee': => @create("CoffeeScript")
+    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Bash': => @create('Bash')
+    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl Ocaml': => @create('Ocaml')
+    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:Repl R': => @create('R')
+
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:toggle': => @toggle()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:create': => @create()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:create': => @create("CoffeeScript")
     @subscriptions.add atom.commands.add 'atom-workspace', 'my-r-e-p-l:interprete': => @interprete()
 
   deactivate: ->
@@ -46,7 +52,7 @@ module.exports = MyREPL =
         grammarName = atom.workspace.getActiveTextEditor().getGrammar().name
       else
         console.log("erreur")
-    console.log(grammarName)
+    console.log("creat "+grammarName)
     @replManager.createRepl(grammarName)
     #@map.push([txtEditor,new REPLView(txtEditor)])
 
