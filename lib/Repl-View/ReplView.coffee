@@ -56,7 +56,6 @@ class REPLView
     format = new REPLFormat("../../Repls/"+file+".js") # new REPLFormat(@key)
     @lastBuf = 0
     @minimaltext = ""
-    console.log("Ok")
     uri = "REPL: "+@grammarName
     atom.workspace.open(uri,split:'right').done (textEditor) =>
           pane = atom.workspace.getActivePane()
