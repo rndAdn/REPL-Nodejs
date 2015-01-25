@@ -1,13 +1,13 @@
 REPLView = require './Repl-View/ReplView'
 
-key = ['replBash','CoffeeScript','replOcaml','replR']
+key = {'replBash':"",'CoffeeScript': "ReplCoffee" , 'replOcaml': "", 'replR':""}
 
 module.exports =
 class ReplManager
 
   constructor: () ->
     @map = {}
-    for k in key
+    for k,v in key
       @map[k] = null
 
   interprete : (select,grammarName) ->
@@ -18,9 +18,9 @@ class ReplManager
       console.log("fuck u 1")
 
   grammarNameSupport : (grammarName) ->
-    if grammarName in key
-      true
-    else
+      for k,v in key
+        if grammarName == k
+          true
       false
 
   callBackCreate: (replView,pane) =>
@@ -39,6 +39,8 @@ class ReplManager
 
   createRepl:(grammarName) =>
     if (@grammarNameSupport(grammarName))
+      console.log("createRepl")
+      @map[grammarName] = new REPLView(grammarName,key[grammarName],@callBackCreate)
       @map[grammarName] = new REPLView(grammarName,@callBackCreate)
     else
       console.log("erreur")
