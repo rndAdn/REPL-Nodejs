@@ -20,14 +20,22 @@ class REPLView
     @repl.remove()
 
   dealWithBuffer :() =>
-    currentText = @replTextEditor.getText()
+    '''currentText = @replTextEditor.getText()
     if(currentText.length<@minimaltext.length)
       @replTextEditor.setText(@minimaltext)
       return
-    buf = @replTextEditor.getCursorBufferPosition()
+    '''
     #console.log(@lastBuf)
-    if(@lastBuf.row<buf.row)
-      #console.log(currentText.substring(@minimaltext.length,currentText.length))
+    buf = @replTextEditor.getCursorBufferPosition()
+    #console.log('las : '+@lastBuf)
+    #console.log('buf : '+buf)
+    if(@lastBuf.row>buf.row || (@lastBuf.row == buf.row && @lastBuf.column > buf.column))
+      #console.log("Nop")
+      @replTextEditor.setCursorBufferPosition(@lastBuf)
+    #console.log(@lastBuf)
+    if(@lastBuf.row<buf.row && !@ignore)
+      #console.log('buf :[ '+@replTextEditor.getTextInBufferRange([@lastBuf,buf],false)+']')
+      #@ignore = true
       @repl.writeInRepl(@replTextEditor.getTextInBufferRange([@lastBuf,buf],false))
       @lastBuf = buf
 
@@ -42,7 +50,8 @@ class REPLView
 
   setTextEditor :(textEditor) =>
     @replTextEditor = textEditor
-    @replTextEditor.onDidStopChanging(@dealWithBuffer)
+    #@replTextEditor.onDidStopChanging(@dealWithBuffer)
+    @replTextEditor.onDidChangeCursorPosition(@dealWithBuffer)
     @setGrammar()
     #@replTextEditor.onWillInsertText(@dealWithInsert)
 
@@ -51,15 +60,19 @@ class REPLView
 
   dealWithRetour: (data) =>
     #console.log(@replTextEditor.constructor.name)
+    @ignore = true
     @replTextEditor.insertText(stripAnsi(""+data))
+    @ignore = false
     @lastBuf = @replTextEditor.getCursorBufferPosition()
-    @minimaltext = @replTextEditor.getText()
+    #@ignore = false
+    #@minimaltext = @replTextEditor.getText()
 
   constructor: (@grammarName,file,callBackCreate) ->
     self = this
     format = new REPLFormat("../../Repls/"+file) # new REPLFormat(@key)
     @lastBuf = 0
-    @minimaltext = ""
+    #@ignore = true
+    #@minimaltext = ""
     uri = "REPL: "+@grammarName
     atom.workspace.open(uri,split:'right').done (textEditor) =>
           pane = atom.workspace.getActivePane()

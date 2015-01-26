@@ -1,5 +1,5 @@
 module.exports =
-cmd = "python"
+cmd = "python3"
 prompt = ""
 args = ["-i"]
 endSequence = '\n'
