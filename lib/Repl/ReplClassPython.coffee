@@ -8,7 +8,7 @@ class ReplPython extends REPL
       processOutputData:(data) ->
         #console.log(@prompt)
         @print += ""+data
-        @retour(@print)
+        @retour(@print,true)
         @print = ""
         #@processCmd()
         #@prompt = true
@@ -16,7 +16,7 @@ class ReplPython extends REPL
       processErrorData:(data) ->
         #console.log(""+data)
         @print += ""+data
-        @retour(@print)
+        @retour(@print,true)
         @print = ""
         @processCmd()
         #@prompt = true
