@@ -9,8 +9,9 @@ class Repl
       @replProcess.kill('SIGKILL')
 
     processCmd:()->
+      @indiceH = -1
       if(@processing) # show prompt
-        @retour(@prompt)
+        @retour(@prompt,true)
       if(@cmdQueue.length > 0) # list of cmd to execute
         @processing = true
         cmd = @cmdQueue.shift()
@@ -27,12 +28,22 @@ class Repl
         @processing = false
 
     history:(up)->
-      console.log(up)
+      if up
+        @indiceH = @indiceH + 1
+      if !up
+        @indiceH = @indiceH - 1
+      if !@historique[@indiceH]?
+        @indiceH = -1
+        @retour('',false)
+        return
+      #console.log(@historique[@indiceH])
+      @retour(@historique[@indiceH],false)
+      #@retour(@history.get(0))
 
     processOutputData:(data) ->
       #console.log(@prompt)
       @print += ""+data
-      @retour(@print)
+      @retour(@print,true)
       @print = ""
       @processCmd()
       #@prompt = true
@@ -59,17 +70,18 @@ class Repl
         lines = cmd.split(@endSequence)
         for element in lines
           if(element != "")
-            @history.push(element+@endSequence)
+            @historique.push(element+@endSequence)
             @cmdQueue.push([element+@endSequence,write_cmd])
       else
         #console.log("1"+cmd)
+        @historique.push(cmd)
         @cmdQueue.push([cmd,write_cmd])
       if(!@processing)
         @processCmd()
 
     constructor:(r_format, @retour) ->
-      @history = new Array()
-      @indiceH = 0
+      @historique = new Array()
+      @indiceH = -1
       self = this
       @processing = true
       cmd = r_format.cmd
@@ -82,7 +94,7 @@ class Repl
       @replProcess.stdout.on('data', (data)->self.processOutputData(data))
       @replProcess.stderr.on('data', (data)->self.processErrorData(data))
       @replProcess.on('close', ()->self.closeRepl())
-      @retour(@print)
+      @retour(@print,true)
 '''
 sh = new ReplSh()
 ocaml = new ReplOcaml()

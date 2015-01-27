@@ -7,12 +7,12 @@ stripAnsi = require 'strip-ansi'
 
 module.exports =
 class REPLView
-  '''
+
   dealWithInsert :(event) =>
     buf = @replTextEditor.getCursorBufferPosition()
-    if(@lastBuf.row>buf.row || @lastBuf.column>buf.column)
+    if(@lastBuf.row>buf.row || (@lastBuf.row == buf.row && @lastBuf.column > buf.column))
       event.cancel()
-  '''
+
   interprete :(select) =>
     #console.log(select)
     @repl.writeInRepl(select,true)
@@ -23,6 +23,8 @@ class REPLView
   dealWithBackspace :() =>
     buf = @replTextEditor.getCursorBufferPosition()
     if(@lastBuf.row>buf.row || (@lastBuf.row == buf.row && @lastBuf.column >= buf.column))
+      console.log("wrong way")
+      @replTextEditor.selectToBufferPosition(buf)
       @replTextEditor.insertText(' ')
       return
 
@@ -35,9 +37,10 @@ class REPLView
 
   dealWithEnter :() =>
     #console.log('enter')
+    @replTextEditor.moveToBottom()
     @replTextEditor.moveToEndOfLine()
     buf = @replTextEditor.getCursorBufferPosition()
-    console.log(@replTextEditor.getTextInBufferRange([@lastBuf,buf]))
+    #console.log(@replTextEditor.getTextInBufferRange([@lastBuf,buf]))
     @repl.writeInRepl(@replTextEditor.getTextInBufferRange([@lastBuf,buf])+'\n',false)
     @lastBuf = buf
 
@@ -52,15 +55,18 @@ class REPLView
         return
 
   dealWithUp:()->
-    console.log('up')
+    #console.log('up')
+    @repl.history(true)
 
   dealWithDown:()->
-    console.log('down')
+    #console.log('down')
+    @repl.history(false)
 
   setTextEditor :(textEditor) =>
     @replTextEditor = textEditor
     #@replTextEditor.onDidChangeCursorPosition(@dealWithBuffer)
     #@replTextEditor.onWillInsertText(@dealWithEnter)
+    @replTextEditor.onWillInsertText(@dealWithInsert)
     textEditorElement = atom.views.getView(@replTextEditor)
     atom.commands.add textEditorElement, 'editor:newline': => @dealWithEnter()
     atom.commands.add textEditorElement, 'core:move-up': => @dealWithUp()
@@ -68,15 +74,21 @@ class REPLView
     atom.commands.add textEditorElement, 'core:backspace': => @dealWithBackspace()
     atom.commands.add textEditorElement, 'core:delete': => @dealWithDelete()
     @setGrammar()
-    #@replTextEditor.onWillInsertText(@dealWithInsert)
 
   setRepl :(repl) =>
     @repl = repl
 
-  dealWithRetour: (data) =>
+  dealWithRetour: (data,append) =>
+    if append
     #console.log(@replTextEditor.constructor.name)
-    @replTextEditor.insertText(stripAnsi(""+data))
-    @lastBuf = @replTextEditor.getCursorBufferPosition()
+      @replTextEditor.insertText(stripAnsi(""+data))
+      @lastBuf = @replTextEditor.getCursorBufferPosition()
+    else
+      @replTextEditor.insertText(stripAnsi(""+data),{select:true})
+      console.log(@replTextEditor.getSelectedText())
+      #@replTextEditor.moveToBottom()
+      #@replTextEditor.moveToEndOfLine()
+      #@lastBuf = @replTextEditor.getCursorBufferPosition()
 
   constructor: (@grammarName,file,callBackCreate) ->
     self = this
