@@ -26,6 +26,9 @@ class Repl
       else
         @processing = false
 
+    history:(up)->
+      console.log(up)
+
     processOutputData:(data) ->
       #console.log(@prompt)
       @print += ""+data
@@ -56,14 +59,17 @@ class Repl
         lines = cmd.split(@endSequence)
         for element in lines
           if(element != "")
+            @history.push(element+@endSequence)
             @cmdQueue.push([element+@endSequence,write_cmd])
       else
-        console.log("1"+cmd)
+        #console.log("1"+cmd)
         @cmdQueue.push([cmd,write_cmd])
       if(!@processing)
         @processCmd()
 
     constructor:(r_format, @retour) ->
+      @history = new Array()
+      @indiceH = 0
       self = this
       @processing = true
       cmd = r_format.cmd

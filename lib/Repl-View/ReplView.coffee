@@ -3,6 +3,7 @@ REPL  = require '../Repl/ReplClass'
 REPLPython  = require '../Repl/ReplClassPython'
 REPLFormat = require '../Repl/ReplFormat'
 stripAnsi = require 'strip-ansi'
+#{CompositeDisposable} = require 'event-kit'
 
 module.exports =
 class REPLView
@@ -13,45 +14,32 @@ class REPLView
       event.cancel()
   '''
   interprete :(select) =>
-    console.log(select)
+    #console.log(select)
     @repl.writeInRepl(select,true)
 
   remove :() =>
     @repl.remove()
 
-  dealWithBuffer :() =>
-    '''currentText = @replTextEditor.getText()
-    if(currentText.length<@minimaltext.length)
-      @replTextEditor.setText(@minimaltext)
-      return
-    '''
-    #console.log(@lastBuf)
+  dealWithBackspace :() =>
     buf = @replTextEditor.getCursorBufferPosition()
-    #console.log('las : '+@lastBuf)
-    #console.log('buf : '+buf)
-    if(@lastBuf.row>buf.row || (@lastBuf.row == buf.row && @lastBuf.column > buf.column))
-      #console.log("Nop")
-      @replTextEditor.setCursorBufferPosition(@lastBuf)
+    if(@lastBuf.row>buf.row || (@lastBuf.row == buf.row && @lastBuf.column >= buf.column))
+      @replTextEditor.insertText(' ')
       return
-    #console.log(@lastBuf)
-    '''
-    if(@lastBuf.row<buf.row && !@ignore)
-      @replTextEditor.moveToEndOfLine()
-      buf = @replTextEditor.getCursorBufferPosition()
-      #console.log('buf :[ '+@replTextEditor.getTextInBufferRange([@lastBuf,[buf2,buf.column]])+']')
-      #@ignore = true
-      @repl.writeInRepl(@replTextEditor.getTextInBufferRange([@lastBuf,buf]),false)
-      @lastBuf = buf
-    '''
 
-  dealWithEnter :(event) =>
-    if('\n' in event.text && ! @ignore)
-      @replTextEditor.moveToEndOfLine()
-      buf = @replTextEditor.getCursorBufferPosition()
-      #console.log('buf :[ '+@replTextEditor.getTextInBufferRange([@lastBuf,[buf2,buf.column]])+']')
-      #@ignore = true
-      @repl.writeInRepl(@replTextEditor.getTextInBufferRange([@lastBuf,buf])+'\n',false)
-      @lastBuf = buf
+  dealWithDelete :() =>
+    '''a gerer mais j'ai pas de truc pour tester'''
+    buf = @replTextEditor.getCursorBufferPosition()
+    if(@lastBuf.row>buf.row || (@lastBuf.row == buf.row && @lastBuf.column >= buf.column))
+      @replTextEditor.insertText(' ')
+      return
+
+  dealWithEnter :() =>
+    #console.log('enter')
+    @replTextEditor.moveToEndOfLine()
+    buf = @replTextEditor.getCursorBufferPosition()
+    console.log(@replTextEditor.getTextInBufferRange([@lastBuf,buf]))
+    @repl.writeInRepl(@replTextEditor.getTextInBufferRange([@lastBuf,buf])+'\n',false)
+    @lastBuf = buf
 
 
   setGrammar : =>
@@ -63,11 +51,22 @@ class REPLView
         @replTextEditor.setGrammar(grammar)
         return
 
+  dealWithUp:()->
+    console.log('up')
+
+  dealWithDown:()->
+    console.log('down')
+
   setTextEditor :(textEditor) =>
     @replTextEditor = textEditor
-    #@replTextEditor.onDidStopChanging(@dealWithBuffer)
-    @replTextEditor.onDidChangeCursorPosition(@dealWithBuffer)
-    @replTextEditor.onWillInsertText(@dealWithEnter)
+    #@replTextEditor.onDidChangeCursorPosition(@dealWithBuffer)
+    #@replTextEditor.onWillInsertText(@dealWithEnter)
+    textEditorElement = atom.views.getView(@replTextEditor)
+    atom.commands.add textEditorElement, 'editor:newline': => @dealWithEnter()
+    atom.commands.add textEditorElement, 'core:move-up': => @dealWithUp()
+    atom.commands.add textEditorElement, 'core:move-down': => @dealWithDown()
+    atom.commands.add textEditorElement, 'core:backspace': => @dealWithBackspace()
+    atom.commands.add textEditorElement, 'core:delete': => @dealWithDelete()
     @setGrammar()
     #@replTextEditor.onWillInsertText(@dealWithInsert)
 
@@ -76,13 +75,12 @@ class REPLView
 
   dealWithRetour: (data) =>
     #console.log(@replTextEditor.constructor.name)
-    @ignore = true
     @replTextEditor.insertText(stripAnsi(""+data))
-    @ignore = false
     @lastBuf = @replTextEditor.getCursorBufferPosition()
 
   constructor: (@grammarName,file,callBackCreate) ->
     self = this
+    #@subscribe = new CompositeDisposable
     format = new REPLFormat("../../Repls/"+file) # new REPLFormat(@key)
     @lastBuf = 0
     #@ignore = true

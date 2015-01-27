@@ -29,6 +29,7 @@ module.exports = MyREPL =
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:create': => @create()
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:interpreteSelect': => @interpreteSelect()
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:interpreteFile': => @interpreteFile()
+    #@subscriptions.add atom.commands.add 'REPL', 'Repl:up': => @up()
 
   deactivate: ->
     #@modalPanel.destroy()
