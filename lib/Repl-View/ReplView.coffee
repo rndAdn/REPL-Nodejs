@@ -45,7 +45,7 @@ class REPLView
     '''
 
   dealWithEnter :(event) =>
-    if('\n' in event.text)
+    if('\n' in event.text && ! @ignore)
       @replTextEditor.moveToEndOfLine()
       buf = @replTextEditor.getCursorBufferPosition()
       #console.log('buf :[ '+@replTextEditor.getTextInBufferRange([@lastBuf,[buf2,buf.column]])+']')
