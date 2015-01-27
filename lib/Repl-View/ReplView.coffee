@@ -32,12 +32,27 @@ class REPLView
     if(@lastBuf.row>buf.row || (@lastBuf.row == buf.row && @lastBuf.column > buf.column))
       #console.log("Nop")
       @replTextEditor.setCursorBufferPosition(@lastBuf)
+      return
     #console.log(@lastBuf)
+    '''
     if(@lastBuf.row<buf.row && !@ignore)
-      #console.log('buf :[ '+@replTextEditor.getTextInBufferRange([@lastBuf,buf],false)+']')
+      @replTextEditor.moveToEndOfLine()
+      buf = @replTextEditor.getCursorBufferPosition()
+      #console.log('buf :[ '+@replTextEditor.getTextInBufferRange([@lastBuf,[buf2,buf.column]])+']')
       #@ignore = true
-      @repl.writeInRepl(@replTextEditor.getTextInBufferRange([@lastBuf,buf],false))
+      @repl.writeInRepl(@replTextEditor.getTextInBufferRange([@lastBuf,buf]),false)
       @lastBuf = buf
+    '''
+
+  dealWithEnter :(event) =>
+    if('\n' in event.text)
+      @replTextEditor.moveToEndOfLine()
+      buf = @replTextEditor.getCursorBufferPosition()
+      #console.log('buf :[ '+@replTextEditor.getTextInBufferRange([@lastBuf,[buf2,buf.column]])+']')
+      #@ignore = true
+      @repl.writeInRepl(@replTextEditor.getTextInBufferRange([@lastBuf,buf])+'\n',false)
+      @lastBuf = buf
+
 
   setGrammar : =>
     grammars = atom.grammars.getGrammars()
@@ -52,6 +67,7 @@ class REPLView
     @replTextEditor = textEditor
     #@replTextEditor.onDidStopChanging(@dealWithBuffer)
     @replTextEditor.onDidChangeCursorPosition(@dealWithBuffer)
+    @replTextEditor.onWillInsertText(@dealWithEnter)
     @setGrammar()
     #@replTextEditor.onWillInsertText(@dealWithInsert)
 
@@ -64,8 +80,6 @@ class REPLView
     @replTextEditor.insertText(stripAnsi(""+data))
     @ignore = false
     @lastBuf = @replTextEditor.getCursorBufferPosition()
-    #@ignore = false
-    #@minimaltext = @replTextEditor.getText()
 
   constructor: (@grammarName,file,callBackCreate) ->
     self = this
