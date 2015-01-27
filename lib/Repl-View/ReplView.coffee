@@ -10,7 +10,7 @@ class REPLView
 
   dealWithInsert :(event) =>
     buf = @replTextEditor.getCursorBufferPosition()
-    if(@lastBuf.row>buf.row || (@lastBuf.row == buf.row && @lastBuf.column > buf.column))
+    if !@ignore && (@lastBuf.row>buf.row || (@lastBuf.row == buf.row && @lastBuf.column > buf.column))
       event.cancel()
 
   interprete :(select) =>
@@ -23,9 +23,9 @@ class REPLView
   dealWithBackspace :() =>
     buf = @replTextEditor.getCursorBufferPosition()
     if(@lastBuf.row>buf.row || (@lastBuf.row == buf.row && @lastBuf.column >= buf.column))
-      console.log("wrong way")
-      @replTextEditor.selectToBufferPosition(buf)
+      @ignore = true
       @replTextEditor.insertText(' ')
+      @ignore = false
       return
 
   dealWithDelete :() =>
@@ -84,8 +84,14 @@ class REPLView
       @replTextEditor.insertText(stripAnsi(""+data))
       @lastBuf = @replTextEditor.getCursorBufferPosition()
     else
-      @replTextEditor.insertText(stripAnsi(""+data),{select:true})
-      console.log(@replTextEditor.getSelectedText())
+      '''
+      à amélioré , (saut de ligne et string vide etc...)
+      '''
+      @replTextEditor.moveToBottom()
+      @replTextEditor.moveToEndOfLine()
+      buf = @replTextEditor.getCursorBufferPosition()
+      @replTextEditor.setTextInBufferRange([@lastBuf,buf],(""+data))
+      #console.log(@replTextEditor.getSelectedText())
       #@replTextEditor.moveToBottom()
       #@replTextEditor.moveToEndOfLine()
       #@lastBuf = @replTextEditor.getCursorBufferPosition()
@@ -95,7 +101,7 @@ class REPLView
     #@subscribe = new CompositeDisposable
     format = new REPLFormat("../../Repls/"+file) # new REPLFormat(@key)
     @lastBuf = 0
-    #@ignore = true
+    @ignore = false
     #@minimaltext = ""
     uri = "REPL: "+@grammarName
     atom.workspace.open(uri,split:'right').done (textEditor) =>
