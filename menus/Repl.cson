@@ -41,6 +41,10 @@
           'command': 'Repl:Repl Node'
         }
         {
+          'label': 'Repl Gdb'
+          'command': 'Repl:Repl Gdb'
+        }
+        {
           'label': 'Interprete File'
           'command': 'Repl:interpreteFile'
         }

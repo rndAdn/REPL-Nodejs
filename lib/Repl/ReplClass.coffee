@@ -30,13 +30,11 @@ class Repl
     history:(up,last)->
       if @indiceH == -1
         @last = last
-      if up
-        @indiceH = @indiceH + 1
-      if !up
+      if up && @historique.length  - 1 > @indiceH
+            @indiceH = @indiceH + 1
+      if !up && @indiceH >= 0
         @indiceH = @indiceH - 1
-      if !@historique[@indiceH]?
-        @indiceH = -1
-        #console.log(@last)
+      if @indiceH == -1
         @retour(@last,false)
         return
       #console.log(@historique[@indiceH])
@@ -72,11 +70,11 @@ class Repl
         lines = cmd.split(@endSequence)
         for element in lines
           if(element != "")
-            @historique.push(element+@endSequence)
+            @historique.unshift(element+@endSequence)
             @cmdQueue.push([element+@endSequence,write_cmd])
       else
         #console.log("1"+cmd)
-        @historique.push(cmd)
+        @historique.unshift(cmd)
         @cmdQueue.push([cmd,write_cmd])
       if(!@processing)
         @processCmd()
