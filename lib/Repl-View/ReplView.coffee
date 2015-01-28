@@ -3,7 +3,7 @@ REPL  = require '../Repl/ReplClass'
 REPLPython  = require '../Repl/ReplClassPython'
 REPLFormat = require '../Repl/ReplFormat'
 stripAnsi = require 'strip-ansi'
-#{CompositeDisposable} = require 'event-kit'
+{CompositeDisposable} = require 'event-kit'
 
 module.exports =
 class REPLView
@@ -18,6 +18,7 @@ class REPLView
     @repl.writeInRepl(select,true)
 
   remove :() =>
+    @subscribe.clear()
     @repl.remove()
 
   dealWithBackspace :() =>
@@ -55,7 +56,6 @@ class REPLView
         return
 
   dealWithUp:()->
-    #console.log('up')
     @repl.history(true)
 
   dealWithDown:()->
@@ -66,13 +66,13 @@ class REPLView
     @replTextEditor = textEditor
     #@replTextEditor.onDidChangeCursorPosition(@dealWithBuffer)
     #@replTextEditor.onWillInsertText(@dealWithEnter)
-    @replTextEditor.onWillInsertText(@dealWithInsert)
-    textEditorElement = atom.views.getView(@replTextEditor)
-    atom.commands.add textEditorElement, 'editor:newline': => @dealWithEnter()
-    atom.commands.add textEditorElement, 'core:move-up': => @dealWithUp()
-    atom.commands.add textEditorElement, 'core:move-down': => @dealWithDown()
-    atom.commands.add textEditorElement, 'core:backspace': => @dealWithBackspace()
-    atom.commands.add textEditorElement, 'core:delete': => @dealWithDelete()
+    @subscribe.add @replTextEditor.onWillInsertText(@dealWithInsert)
+    @subscribe.add textEditorElement = atom.views.getView(@replTextEditor)
+    @subscribe.add atom.commands.add textEditorElement, 'editor:newline': => @dealWithEnter()
+    @subscribe.add atom.commands.add textEditorElement, 'core:move-up': =>@dealWithUp()
+    @subscribe.add atom.commands.add textEditorElement, 'core:move-down': => @dealWithDown()
+    @subscribe.add atom.commands.add textEditorElement, 'core:backspace': => @dealWithBackspace()
+    @subscribe.add atom.commands.add textEditorElement, 'core:delete': => @dealWithDelete()
     @setGrammar()
 
   setRepl :(repl) =>
@@ -90,15 +90,15 @@ class REPLView
       @replTextEditor.moveToBottom()
       @replTextEditor.moveToEndOfLine()
       buf = @replTextEditor.getCursorBufferPosition()
-      @replTextEditor.setTextInBufferRange([@lastBuf,buf],(""+data))
+      @replTextEditor.setTextInBufferRange([@lastBuf,buf],(""+data),select = true)
+      #@replTextEditor.selectToBeginningOfLine()
       #console.log(@replTextEditor.getSelectedText())
-      #@replTextEditor.moveToBottom()
       #@replTextEditor.moveToEndOfLine()
       #@lastBuf = @replTextEditor.getCursorBufferPosition()
 
   constructor: (@grammarName,file,callBackCreate) ->
     self = this
-    #@subscribe = new CompositeDisposable
+    @subscribe = new CompositeDisposable
     format = new REPLFormat("../../Repls/"+file) # new REPLFormat(@key)
     @lastBuf = 0
     @ignore = false
