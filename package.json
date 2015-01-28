@@ -10,6 +10,7 @@
     "atom": ">0.50.0"
   },
   "dependencies": {
-    "strip-ansi": "2.0.1"
+    "strip-ansi": "2.0.1",
+    "event-kit": "1.0.1"
   }
 }

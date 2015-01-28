@@ -30,10 +30,13 @@ class REPLView
       return
 
   dealWithDelete :() =>
-    '''a gerer mais j'ai pas de truc pour tester'''
+    '''Gerer suppression text Selection'''
     buf = @replTextEditor.getCursorBufferPosition()
-    if(@lastBuf.row>buf.row || (@lastBuf.row == buf.row && @lastBuf.column >= buf.column))
+    if(@lastBuf.row>buf.row || (@lastBuf.row == buf.row && @lastBuf.column > buf.column))
+      @ignore = true
       @replTextEditor.insertText(' ')
+      @replTextEditor.moveLeft(1)
+      @ignore = false
       return
 
   dealWithEnter :() =>
