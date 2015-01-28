@@ -17,6 +17,7 @@ Search for ```Repl``` within package search in the Settings View.
 * ```ctrl-y ctrl-c``` Launch CoffeeScript Repl
 * ```ctrl-y ctrl-r``` Launch R Repl
 * ```ctrl-y ctrl-n``` Launch Node Repl
+* ```ctrl-y ctrl-g``` Launch Gdb Repl
 
 ###Evaluate in REPL:
 * ```ctrl-y ctrl-s``` Evaluate Selection
@@ -30,3 +31,4 @@ Search for ```Repl``` within package search in the Settings View.
 * R
 * Python
 * Node
+* Gdb
