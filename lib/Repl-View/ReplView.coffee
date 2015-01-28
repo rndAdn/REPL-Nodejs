@@ -56,11 +56,15 @@ class REPLView
         return
 
   dealWithUp:()->
-    @repl.history(true)
+    @replTextEditor.moveToEndOfLine()
+    buf = @replTextEditor.getCursorBufferPosition()
+    @repl.history(true,@replTextEditor.getTextInBufferRange([@lastBuf,buf]))
 
   dealWithDown:()->
     #console.log('down')
-    @repl.history(false)
+    @replTextEditor.moveToEndOfLine()
+    buf = @replTextEditor.getCursorBufferPosition()
+    @repl.history(false,@replTextEditor.getTextInBufferRange([@lastBuf,buf]))
 
   setTextEditor :(textEditor) =>
     @replTextEditor = textEditor

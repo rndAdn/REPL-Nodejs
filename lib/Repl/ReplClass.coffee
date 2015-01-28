@@ -27,14 +27,17 @@ class Repl
       else
         @processing = false
 
-    history:(up)->
+    history:(up,last)->
+      if @indiceH == -1
+        @last = last
       if up
         @indiceH = @indiceH + 1
       if !up
         @indiceH = @indiceH - 1
       if !@historique[@indiceH]?
         @indiceH = -1
-        @retour('',false)
+        #console.log(@last)
+        @retour(@last,false)
         return
       #console.log(@historique[@indiceH])
       @retour(@historique[@indiceH],false)
