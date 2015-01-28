@@ -25,6 +25,7 @@ module.exports = MyREPL =
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Ocaml': => @create('OCaml')
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl R': => @create('R')
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Node': => @create('Node')
+    @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl C': => @create('C')
 
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:create': => @create()
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:interpreteSelect': => @interpreteSelect()
@@ -53,6 +54,7 @@ module.exports = MyREPL =
     txtEditor = atom.workspace.getActiveTextEditor()
     if (txtEditor?)
       grammarName = txtEditor.getGrammar().name
+      #@replManager.createRepl(grammarName)
       @replManager.interprete(txtEditor.getSelectedText(),grammarName)
     else
       console.log("fuck u 2")
@@ -61,6 +63,8 @@ module.exports = MyREPL =
     txtEditor = atom.workspace.getActiveTextEditor()
     if (txtEditor?)
       grammarName = txtEditor.getGrammar().name
+      #@replManager.createRepl(grammarName)
       @replManager.interprete(txtEditor.getText(),grammarName)
+
     else
       console.log("fuck u 3")

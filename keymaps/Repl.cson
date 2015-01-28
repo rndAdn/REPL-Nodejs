@@ -16,6 +16,7 @@
     'ctrl-y ctrl-c': 'Repl:Repl Coffee',
     'ctrl-y ctrl-r': 'Repl:Repl R',
     'ctrl-y ctrl-n': 'Repl:Repl Node',
+    'ctrl-y ctrl-g': 'Repl:Repl C',
 
     'ctrl-y ctrl-s':'Repl:interpreteSelect',
     'ctrl-y ctrl-f': 'Repl:interpreteFile'
