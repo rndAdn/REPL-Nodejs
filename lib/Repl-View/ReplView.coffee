@@ -3,41 +3,47 @@ REPL  = require '../Repl/ReplClass'
 REPLPython  = require '../Repl/ReplClassPython'
 REPLFormat = require '../Repl/ReplFormat'
 stripAnsi = require 'strip-ansi'
+#{CompositeDisposable} = require 'event-kit'
 
 module.exports =
 class REPLView
-  '''
+
   dealWithInsert :(event) =>
     buf = @replTextEditor.getCursorBufferPosition()
-    if(@lastBuf.row>buf.row || @lastBuf.column>buf.column)
+    if !@ignore && (@lastBuf.row>buf.row || (@lastBuf.row == buf.row && @lastBuf.column > buf.column))
       event.cancel()
-  '''
+
   interprete :(select) =>
-    console.log(select)
+    #console.log(select)
     @repl.writeInRepl(select,true)
 
   remove :() =>
     @repl.remove()
 
-  dealWithBuffer :() =>
-    '''currentText = @replTextEditor.getText()
-    if(currentText.length<@minimaltext.length)
-      @replTextEditor.setText(@minimaltext)
-      return
-    '''
-    #console.log(@lastBuf)
+  dealWithBackspace :() =>
     buf = @replTextEditor.getCursorBufferPosition()
-    #console.log('las : '+@lastBuf)
-    #console.log('buf : '+buf)
-    if(@lastBuf.row>buf.row || (@lastBuf.row == buf.row && @lastBuf.column > buf.column))
-      #console.log("Nop")
-      @replTextEditor.setCursorBufferPosition(@lastBuf)
-    #console.log(@lastBuf)
-    if(@lastBuf.row<buf.row && !@ignore)
-      #console.log('buf :[ '+@replTextEditor.getTextInBufferRange([@lastBuf,buf],false)+']')
-      #@ignore = true
-      @repl.writeInRepl(@replTextEditor.getTextInBufferRange([@lastBuf,buf],false))
-      @lastBuf = buf
+    if(@lastBuf.row>buf.row || (@lastBuf.row == buf.row && @lastBuf.column >= buf.column))
+      @ignore = true
+      @replTextEditor.insertText(' ')
+      @ignore = false
+      return
+
+  dealWithDelete :() =>
+    '''a gerer mais j'ai pas de truc pour tester'''
+    buf = @replTextEditor.getCursorBufferPosition()
+    if(@lastBuf.row>buf.row || (@lastBuf.row == buf.row && @lastBuf.column >= buf.column))
+      @replTextEditor.insertText(' ')
+      return
+
+  dealWithEnter :() =>
+    #console.log('enter')
+    @replTextEditor.moveToBottom()
+    @replTextEditor.moveToEndOfLine()
+    buf = @replTextEditor.getCursorBufferPosition()
+    #console.log(@replTextEditor.getTextInBufferRange([@lastBuf,buf]))
+    @repl.writeInRepl(@replTextEditor.getTextInBufferRange([@lastBuf,buf])+'\n',false)
+    @lastBuf = buf
+
 
   setGrammar : =>
     grammars = atom.grammars.getGrammars()
@@ -48,30 +54,54 @@ class REPLView
         @replTextEditor.setGrammar(grammar)
         return
 
+  dealWithUp:()->
+    #console.log('up')
+    @repl.history(true)
+
+  dealWithDown:()->
+    #console.log('down')
+    @repl.history(false)
+
   setTextEditor :(textEditor) =>
     @replTextEditor = textEditor
-    #@replTextEditor.onDidStopChanging(@dealWithBuffer)
-    @replTextEditor.onDidChangeCursorPosition(@dealWithBuffer)
+    #@replTextEditor.onDidChangeCursorPosition(@dealWithBuffer)
+    #@replTextEditor.onWillInsertText(@dealWithEnter)
+    @replTextEditor.onWillInsertText(@dealWithInsert)
+    textEditorElement = atom.views.getView(@replTextEditor)
+    atom.commands.add textEditorElement, 'editor:newline': => @dealWithEnter()
+    atom.commands.add textEditorElement, 'core:move-up': => @dealWithUp()
+    atom.commands.add textEditorElement, 'core:move-down': => @dealWithDown()
+    atom.commands.add textEditorElement, 'core:backspace': => @dealWithBackspace()
+    atom.commands.add textEditorElement, 'core:delete': => @dealWithDelete()
     @setGrammar()
-    #@replTextEditor.onWillInsertText(@dealWithInsert)
 
   setRepl :(repl) =>
     @repl = repl
 
-  dealWithRetour: (data) =>
+  dealWithRetour: (data,append) =>
+    if append
     #console.log(@replTextEditor.constructor.name)
-    @ignore = true
-    @replTextEditor.insertText(stripAnsi(""+data))
-    @ignore = false
-    @lastBuf = @replTextEditor.getCursorBufferPosition()
-    #@ignore = false
-    #@minimaltext = @replTextEditor.getText()
+      @replTextEditor.insertText(stripAnsi(""+data))
+      @lastBuf = @replTextEditor.getCursorBufferPosition()
+    else
+      '''
+      à amélioré , (saut de ligne et string vide etc...)
+      '''
+      @replTextEditor.moveToBottom()
+      @replTextEditor.moveToEndOfLine()
+      buf = @replTextEditor.getCursorBufferPosition()
+      @replTextEditor.setTextInBufferRange([@lastBuf,buf],(""+data))
+      #console.log(@replTextEditor.getSelectedText())
+      #@replTextEditor.moveToBottom()
+      #@replTextEditor.moveToEndOfLine()
+      #@lastBuf = @replTextEditor.getCursorBufferPosition()
 
   constructor: (@grammarName,file,callBackCreate) ->
     self = this
+    #@subscribe = new CompositeDisposable
     format = new REPLFormat("../../Repls/"+file) # new REPLFormat(@key)
     @lastBuf = 0
-    #@ignore = true
+    @ignore = false
     #@minimaltext = ""
     uri = "REPL: "+@grammarName
     atom.workspace.open(uri,split:'right').done (textEditor) =>
