@@ -1,5 +1,4 @@
 REPLView = require './Repl-View/ReplView'
-
 dico = require "./ReplList.js"
 
 

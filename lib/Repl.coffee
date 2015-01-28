@@ -34,6 +34,7 @@ module.exports = MyREPL =
 
   deactivate: ->
     #@modalPanel.destroy()
+    @subscriptions.clear()
     @subscriptions.dispose()
     #@myREPLView.destroy()
 
