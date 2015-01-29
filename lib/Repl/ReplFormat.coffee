@@ -10,4 +10,4 @@ class ReplFormat
         @cmd = cmd
         @args = args
         @prompt = prompt
-        @endSequence = endSequence  
+        @endSequence = endSequence
