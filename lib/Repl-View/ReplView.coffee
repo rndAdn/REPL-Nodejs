@@ -98,6 +98,7 @@ class REPLView
       @replTextEditor.moveToEndOfLine()
       buf = @replTextEditor.getCursorBufferPosition()
       @replTextEditor.setTextInBufferRange([@lastBuf,buf],(""+data),select = true)
+      #@replTextEditor.moveBottom(1)
       #@replTextEditor.selectToBeginningOfLine()
       #console.log(@replTextEditor.getSelectedText())
       #@replTextEditor.moveToEndOfLine()

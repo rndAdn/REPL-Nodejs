@@ -37,8 +37,9 @@ class Repl
       if @indiceH == -1
         @retour(@last,false)
         return
+      h = @historique[@indiceH].substring(0,@historique[@indiceH].length-1)
       #console.log(@historique[@indiceH])
-      @retour(@historique[@indiceH],false)
+      @retour(h,false)
       #@retour(@history.get(0))
 
     processOutputData:(data) ->
