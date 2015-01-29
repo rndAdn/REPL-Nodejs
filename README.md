@@ -32,3 +32,6 @@ Search for ```Repl``` within package search in the Settings View.
 * Python
 * Node
 * Gdb
+
+## Under Work Feature:
+* History (up and down)
