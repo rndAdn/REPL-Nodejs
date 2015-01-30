@@ -26,6 +26,7 @@ module.exports = MyREPL =
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl R': => @create('R')
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Node': => @create('Node')
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Gdb': => @create('C')
+    @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Ssh': => @create('Ssh')
 
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:create': => @create()
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:interpreteSelect': => @interpreteSelect()
