@@ -45,10 +45,6 @@
           'command': 'Repl:Repl Gdb'
         }
         {
-          'label': 'Repl Ssh'
-          'command': 'Repl:Repl Ssh'
-        }
-        {
           'label': 'Interprete File'
           'command': 'Repl:interpreteFile'
         }

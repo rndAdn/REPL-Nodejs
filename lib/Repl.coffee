@@ -19,14 +19,13 @@ module.exports = MyREPL =
     @subscriptions = new CompositeDisposable
 
      # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Python': => @create("Python")
+    @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Python': => @create("Python Console")
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Coffee': => @create("CoffeeScript")
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Bash': => @create('Shell Session')
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Ocaml': => @create('OCaml')
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl R': => @create('R')
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Node': => @create('Node')
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Gdb': => @create('C')
-    @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Ssh': => @create('Ssh')
 
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:create': => @create()
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:interpreteSelect': => @interpreteSelect()
