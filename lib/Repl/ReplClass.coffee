@@ -85,7 +85,7 @@ class Repl
       @indiceH = -1
       self = this
       @processing = true
-      cmd = r_format.cmd
+      @cmd = r_format.cmd
       args = r_format.args
       @prompt = r_format.prompt
       @endSequence = r_format.endSequence
