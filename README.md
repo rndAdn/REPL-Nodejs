@@ -8,6 +8,10 @@ or
 
 Search for ```Repl``` within package search in the Settings View.
 
+## Settings
+You can set the path to your executable in the package settings.
+
+
 ## Keybindings
 ###Launch REPL
 * ```ctrl-y ctrl-d``` Launch default Repl (**'Bash'**)
