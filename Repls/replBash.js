@@ -1,5 +1,5 @@
 module.exports =
-cmd = "bash"
+cmd = atom.config.get('Repl.bash')
 prompt = "bash $ "
 args = ['-i']
 endSequence = '\n'

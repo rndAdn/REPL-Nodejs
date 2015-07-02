@@ -4,6 +4,49 @@ REPLManager = require './ReplManager'
 {CompositeDisposable} = require 'atom'
 
 module.exports = MyREPL =
+
+config:
+    bash:
+      title: 'Bash'
+      type: 'string'
+      default: 'bash'
+      description: 'path to bash ex: /usr/bin/bash'
+    coffee:
+      type: 'string'
+      title: 'Coffee'
+      default: 'coffee'
+      description: 'path to coffee'
+    gdb:
+      type: 'string'
+      title: 'Gdb'
+      default: 'gdb'
+      description: 'path to gdb'
+    node:
+      type: 'string'
+      title: 'Node.js'
+      default: 'node'
+      description: 'path to node'
+     ocaml:
+      type: 'string'
+      title: 'Ocaml'
+      default: 'ocaml'
+      description: 'path to ocaml'
+    python2:
+      type: 'string'
+      title: 'Python 2'
+      default: 'python2'
+      description: 'path to python2'
+    python3:
+      type: 'string'
+      title: 'Python 3'
+      default: 'python3'
+      description: 'path to python3'
+    r:
+      type: 'string'
+      title: 'R'
+      default: 'R'
+      description: 'path to R'
+
   #myREPLView: null
   #modalPanel: null
   subscriptions: null

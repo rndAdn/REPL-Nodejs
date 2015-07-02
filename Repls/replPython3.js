@@ -1,5 +1,5 @@
 module.exports =
-cmd = "python3"
+cmd = atom.config.get('Repl.python3')
 prompt = ""
 args = ["-i"]
 endSequence = '\n'
