@@ -12,7 +12,7 @@ Search for ```Repl``` within package search in the Settings View.
 ###Launch REPL
 * ```ctrl-y ctrl-d``` Launch default Repl (**'Bash'**)
 * ```ctrl-y ctrl-o``` Launch OCaml Repl
-* ```ctrl-y ctrl-p``` Launch Python Repl
+* ```ctrl-y ctrl-p``` Launch Python3 Repl
 * ```ctrl-y ctrl-b``` Launch Bash Repl
 * ```ctrl-y ctrl-c``` Launch CoffeeScript Repl
 * ```ctrl-y ctrl-r``` Launch R Repl
@@ -29,7 +29,8 @@ Search for ```Repl``` within package search in the Settings View.
 * Bash
 * Coffee
 * R
-* Python
+* Python2
+* Python3
 * Node
 * Gdb
 
