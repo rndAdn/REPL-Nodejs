@@ -15,20 +15,18 @@ class ReplManager
     if(replView?)
       replView.interprete(select)
     else
-      console.log("fuck u 1")
+      console.log("error interprete")
 
   grammarNameSupport : (grammarName) ->
       return (dico[grammarName]?)
 
 
   callBackCreate: (replView,pane) =>
-    console.log("ici")
+    console.log("in -> callBackCreate")
     pane.onDidActivate(()=>
       if(pane.getActiveItem() == replView.replTextEditor)
-        console.log('now')
         @map[replView.grammarName] = replView
       )
-    console.log("ici")
     replView.replTextEditor.onDidDestroy(()=>
       if(@map[replView.grammarName] == replView)
         @map[replView.grammarName] = null

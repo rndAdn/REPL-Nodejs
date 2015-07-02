@@ -107,7 +107,6 @@ class REPLView
   constructor: (@grammarName,file,callBackCreate) ->
     self = this
     @subscribe = new CompositeDisposable
-    console.log (file)
     format = new REPLFormat("../../Repls/"+file) # new REPLFormat(@key)
     @lastBuf = 0
     @ignore = false
@@ -115,7 +114,6 @@ class REPLView
     uri = "REPL: "+@grammarName
     atom.workspace.open(uri,split:'right').done (textEditor) =>
           pane = atom.workspace.getActivePane()
-
           if(self.grammarName == "Python Console3" || self.grammarName == "Python Console2" || self.grammarName == "Python")
             @grammarName = "Python Console"
             self.setTextEditor(textEditor)

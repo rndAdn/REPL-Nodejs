@@ -5,7 +5,7 @@ module.exports =
 class Repl
 
     remove : () ->
-      console.log("kill")
+      console.log("kill Repl")
       @replProcess.kill('SIGKILL')
 
     processCmd:()->

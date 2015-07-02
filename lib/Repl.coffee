@@ -52,7 +52,7 @@ config:
   subscriptions: null
 
   activate: (state) ->
-    console.log("activate")
+    console.log("activate Repl")
     @map = new Array()
     @replManager = new REPLManager()
     #@myREPLView = new MyREPLView(state.myREPLViewState)
@@ -103,7 +103,7 @@ config:
       #@replManager.createRepl(grammarName)
       @replManager.interprete(txtEditor.getSelectedText(),grammarName)
     else
-      console.log("fuck u 2")
+      console.log("error interpreteSelect")
 
   interpreteFile: ->
     txtEditor = atom.workspace.getActiveTextEditor()
@@ -113,4 +113,4 @@ config:
       @replManager.interprete(txtEditor.getText(),grammarName)
 
     else
-      console.log("fuck u 3")
+      console.log("error interpreteFile")
