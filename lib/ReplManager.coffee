@@ -41,4 +41,4 @@ class ReplManager
       @map[grammarName] = new REPLView(grammarName,dico[grammarName],@callBackCreate)
       #@map[grammarName] = new REPLView(grammarName,@callBackCreate)
     else
-      console.log("erreur2")
+      console.log("grammar error")

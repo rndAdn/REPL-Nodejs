@@ -10,7 +10,7 @@
 'atom-workspace':
     'ctrl-y ctrl-d': 'Repl:create',
     'ctrl-y ctrl-o': 'Repl:Repl Ocaml',
-    'ctrl-y ctrl-p': 'Repl:Repl Python',
+    'ctrl-y ctrl-p': 'Repl:Repl Python3',
     'ctrl-y ctrl-b': 'Repl:Repl Bash',
     'ctrl-y ctrl-c': 'Repl:Repl Coffee',
     'ctrl-y ctrl-r': 'Repl:Repl R',

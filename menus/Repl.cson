@@ -17,8 +17,12 @@
             'command': 'Repl:create'
         }
         {
-          'label': 'Repl Python'
-          'command': 'Repl:Repl Python'
+          'label': 'Repl Python2'
+          'command': 'Repl:Repl Python2'
+        }
+        {
+          'label': 'Repl Python3'
+          'command': 'Repl:Repl Python3'
         }
         {
           'label': 'Repl Ocaml'

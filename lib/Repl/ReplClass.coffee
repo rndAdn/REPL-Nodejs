@@ -92,6 +92,7 @@ class Repl
       @print = ""
       @cmdQueue =   new Array()
       @replProcess = child_process.spawn(cmd, args)
+      console.log(cmd)
       @replProcess.stdout.on('data', (data)->self.processOutputData(data))
       @replProcess.stderr.on('data', (data)->self.processErrorData(data))
       @replProcess.on('close', ()->self.closeRepl())
