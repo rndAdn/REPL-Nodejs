@@ -8,6 +8,8 @@ class ReplFormat
         require conf_path
         # TODO: check cmd, args ... existe
         @cmd = cmd
+        console.log("format "+ cmd)
         @args = args
         @prompt = prompt
         @endSequence = endSequence
+        delete require.cache[require.resolve(conf_path)]
