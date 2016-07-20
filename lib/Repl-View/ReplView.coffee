@@ -51,9 +51,10 @@ class REPLView
 
   setGrammar : =>
     grammars = atom.grammars.getGrammars()
+    gName = if @grammarName == 'Node' then 'JavaScript' else @grammarName
     #console.log(grammars[0])
     for grammar in grammars
-      if (grammar.name ==  @grammarName)
+      if (grammar.name ==  gName)
         #console.log(grammar)
         @replTextEditor.setGrammar(grammar)
         return
