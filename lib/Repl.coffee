@@ -46,6 +46,11 @@ config:
       title: 'R'
       default: 'R'
       description: 'path to R'
+    splitRight:
+      type: 'boolean'
+      title: 'Open Repl in the rightmost pane'
+      default: true
+      description: 'Whether to open Repl editor in rightmost pane'
 
   #myREPLView: null
   #modalPanel: null

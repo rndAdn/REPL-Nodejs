@@ -113,7 +113,8 @@ class REPLView
     @ignore = false
     #@minimaltext = ""
     uri = "REPL: "+@grammarName
-    atom.workspace.open(uri,split:'right').done (textEditor) =>
+    opts = split:'right' if atom.config.get('Repl.splitRight')
+    atom.workspace.open(uri, opts).done (textEditor) =>
           pane = atom.workspace.getActivePane()
           if(self.grammarName == "Python Console3" || self.grammarName == "Python Console2" || self.grammarName == "Python")
             @grammarName = "Python Console"
