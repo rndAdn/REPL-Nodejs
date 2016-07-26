@@ -59,7 +59,7 @@ class REPLView
         # change the scopeName so that other packages (namely the atom-linter package [https://atom.io/packages/linter]) stop making invalid actions;
         # see https://github.com/steelbrain/linter/issues/1207
         grammarToUse = clone.clonePrototype(grammar)
-        grammarToUse.scopeName = 'repl' + grammarToUse.scopeName;
+        grammarToUse.scopeName = 'repl.' + grammarToUse.scopeName;
         @replTextEditor.setGrammar(grammarToUse)
         return
 
