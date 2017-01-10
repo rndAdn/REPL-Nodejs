@@ -49,6 +49,10 @@
           'command': 'Repl:Repl Gdb'
         }
         {
+          'label': 'Repl Swift'
+          'command': 'Repl:Repl Swift'
+        }
+        {
           'label': 'Interprete File'
           'command': 'Repl:interpreteFile'
         }

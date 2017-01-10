@@ -46,6 +46,11 @@ config:
       title: 'R'
       default: 'R'
       description: 'path to R'
+    swift:
+      type: 'string'
+      title: 'Swift'
+      default: 'swift'
+      description: 'path to swift'
     splitRight:
       type: 'boolean'
       title: 'Open Repl in the rightmost pane'
@@ -75,6 +80,7 @@ config:
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl R': => @create('R')
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Node': => @create('Node')
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Gdb': => @create('C')
+    @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Swift': => @create('Swift')
 
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:create': => @create()
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:interpreteSelect': => @interpreteSelect()
