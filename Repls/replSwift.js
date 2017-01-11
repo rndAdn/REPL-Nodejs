@@ -1,5 +1,5 @@
 module.exports =
 cmd = atom.config.get('Repl.swift')
 prompt = ""
-args = [-I]
+args = ['-I']
 endSequence = '\n'
