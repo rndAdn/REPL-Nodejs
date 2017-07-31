@@ -22,6 +22,7 @@ You can set the path to your executable in the package settings.
 * ```ctrl-y ctrl-r``` Launch R Repl
 * ```ctrl-y ctrl-n``` Launch Node Repl
 * ```ctrl-y ctrl-g``` Launch Gdb Repl
+* ```ctrl-y ctrl-w``` Launch Swift Repl
 
 ###Evaluate in REPL:
 * ```ctrl-y ctrl-s``` Evaluate Selection
@@ -37,6 +38,7 @@ You can set the path to your executable in the package settings.
 * Python3
 * Node
 * Gdb
+* Swift
 
 ## Under Work Feature:
 * History (up and down)

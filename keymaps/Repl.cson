@@ -17,6 +17,7 @@
     'ctrl-y ctrl-r': 'Repl:Repl R',
     'ctrl-y ctrl-n': 'Repl:Repl Node',
     'ctrl-y ctrl-g': 'Repl:Repl Gdb',
+    'ctrl-y ctrl-w': 'Repl:Repl Swift',
 
     'ctrl-y ctrl-s': 'Repl:interpreteSelect',
     'ctrl-y ctrl-f': 'Repl:interpreteFile'
