@@ -4,6 +4,7 @@ REPLPython  = require '../Repl/ReplClassPython'
 REPLFormat = require '../Repl/ReplFormat'
 stripAnsi = require 'strip-ansi'
 {CompositeDisposable} = require 'event-kit'
+clone = require 'clone'
 
 module.exports =
 class REPLView
@@ -55,8 +56,11 @@ class REPLView
     #console.log(grammars[0])
     for grammar in grammars
       if (grammar.name ==  gName)
-        #console.log(grammar)
-        @replTextEditor.setGrammar(grammar)
+        # change the scopeName so that other packages (namely the atom-linter package [https://atom.io/packages/linter]) stop making invalid actions;
+        # see https://github.com/steelbrain/linter/issues/1207
+        grammarToUse = clone.clonePrototype(grammar)
+        grammarToUse.scopeName = 'repl.' + grammarToUse.scopeName;
+        @replTextEditor.setGrammar(grammarToUse)
         return
 
   dealWithUp:()->
