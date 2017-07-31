@@ -26,11 +26,16 @@ config:
       title: 'Node.js'
       default: 'node'
       description: 'path to node'
-     ocaml:
+    ocaml:
       type: 'string'
       title: 'Ocaml'
       default: 'ocaml'
       description: 'path to ocaml'
+    octave:
+      type: 'string'
+      title: 'Octave'
+      default: 'octave'
+      description: 'path to Octave'
     python2:
       type: 'string'
       title: 'Python 2'
@@ -72,6 +77,7 @@ config:
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Coffee': => @create("CoffeeScript")
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Bash': => @create('Shell Session')
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Ocaml': => @create('OCaml')
+    @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Octave': => @create('Octave')
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl R': => @create('R')
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Node': => @create('Node')
     @subscriptions.add atom.commands.add 'atom-workspace', 'Repl:Repl Gdb': => @create('C')

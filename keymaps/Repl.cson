@@ -10,6 +10,7 @@
 'atom-workspace':
     'ctrl-y ctrl-d': 'Repl:create',
     'ctrl-y ctrl-o': 'Repl:Repl Ocaml',
+    'ctrl-y ctrl-m': 'Repl:Repl Octave',
     'ctrl-y ctrl-p': 'Repl:Repl Python3',
     'ctrl-y ctrl-b': 'Repl:Repl Bash',
     'ctrl-y ctrl-c': 'Repl:Repl Coffee',
@@ -17,5 +18,5 @@
     'ctrl-y ctrl-n': 'Repl:Repl Node',
     'ctrl-y ctrl-g': 'Repl:Repl Gdb',
 
-    'ctrl-y ctrl-s':'Repl:interpreteSelect',
+    'ctrl-y ctrl-s': 'Repl:interpreteSelect',
     'ctrl-y ctrl-f': 'Repl:interpreteFile'
