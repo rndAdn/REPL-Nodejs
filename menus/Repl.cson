@@ -29,6 +29,10 @@
           'command': 'Repl:Repl Ocaml'
         }
         {
+          'label': 'Repl Octave'
+          'command': 'Repl:Repl Octave'
+        }
+        {
           'label': 'Repl Bash'
           'command': 'Repl:Repl Bash'
         }
